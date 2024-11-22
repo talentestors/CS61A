@@ -1,19 +1,18 @@
 {
     "name": "Lab 9",
-    "endpoint": "cal/cs61a/su20/lab09",
+    "endpoint": "ucb/cs61a/sp24/lab09",
     "src": [
-        "lab09.py"
+        "lab09.scm"
     ],
     "tests": {
-        "lab*.py": "doctest",
         "tests/*.py": "ok_test"
     },
     "default_tests": [
-        "link",
-        "convert_link",
-        "every_other",
-        "label_squarer",
-        "cumulative_mul"
+        "over_or_under",
+        "make_adder",
+        "composed",
+        "repeat",
+        "gcd"
     ],
     "protocols": [
         "restore",

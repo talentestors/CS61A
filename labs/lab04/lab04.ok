@@ -1,6 +1,6 @@
 {
     "name": "Lab 4",
-    "endpoint": "cal/cs61a/su20/lab04",
+    "endpoint": "ucb/cs61a/sp24/lab04",
     "src": [
         "lab04.py"
     ],
@@ -9,12 +9,12 @@
         "tests/*.py": "ok_test"
     },
     "default_tests": [
-        "list-indexing",
-        "reverse_iter",
-        "reverse_recursive",
+        "pokemon",
+        "divide",
+        "buy",
         "distance",
         "closer_city",
-        "check_abstraction"
+        "check_city_abstraction"
     ],
     "protocols": [
         "restore",

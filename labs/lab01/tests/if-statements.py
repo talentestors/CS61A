@@ -17,7 +17,7 @@ test = {
           foo
           """,
           'hidden': False,
-          'locked': False
+          'multiline': False
         },
         {
           'code': r"""
@@ -39,7 +39,7 @@ test = {
           'mashed potatoes'
           """,
           'hidden': False,
-          'locked': False
+          'multiline': False
         }
       ],
       'scored': False,

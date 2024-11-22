@@ -1,5 +1,34 @@
-from operator import mul
-from functools import reduce
+def digit(n, k):
+    """Return the digit that is k from the right of n for positive integers n and k.
+
+    >>> digit(3579, 2)
+    5
+    >>> digit(3579, 0)
+    9
+    >>> digit(3579, 10)
+    0
+    """
+    return n // pow(10, k) % 10
+
+
+def middle(a, b, c):
+    """Return the number among a, b, and c that is not the smallest or largest.
+    Assume a, b, and c are all different numbers.
+
+    >>> middle(3, 5, 4)
+    4
+    >>> middle(30, 5, 4)
+    5
+    >>> middle(3, 5, 40)
+    5
+    >>> middle(3, 5, 40)
+    5
+    >>> middle(30, 5, 40)
+    30
+    """
+    return a + b + c - min(a, b, c) - max(a, b, c)
+
+
 def falling(n, k):
     """Compute the falling factorial of n to depth k.
 
@@ -12,10 +41,40 @@ def falling(n, k):
     >>> falling(4, 0)
     1
     """
-    "*** YOUR CODE HERE ***"
-    if k == 0:
-        return 1
-    return reduce(mul, range(n, n-k, -1))
+    total, stop = 1, n-k
+    while n > stop:
+        total, n = total*n, n-1
+    return total
+
+
+def divisible_by_k(n, k):
+    """
+    >>> a = divisible_by_k(10, 2)  # 2, 4, 6, 8, and 10 are divisible by 2
+    2
+    4
+    6
+    8
+    10
+    >>> a
+    5
+    >>> b = divisible_by_k(3, 1)  # 1, 2, and 3 are divisible by 1
+    1
+    2
+    3
+    >>> b
+    3
+    >>> c = divisible_by_k(6, 7)  # There are no integers up to 6 divisible by 7
+    >>> c
+    0
+    """
+    count = 0
+    i = 1
+    while i <= n:
+        if i % k == 0:
+            print(i)
+            count += 1
+        i += 1
+    return count
 
 
 def sum_digits(y):
@@ -31,12 +90,10 @@ def sum_digits(y):
     >>> a
     6
     """
-    "*** YOUR CODE HERE ***"
-    ans = 0
-    while y:
-        ans += y % 10
-        y //= 10
-    return ans
+    total = 0
+    while y > 0:
+        total, y = total + y % 10, y // 10
+    return total
 
 
 def double_eights(n):
@@ -54,17 +111,24 @@ def double_eights(n):
     >>> double_eights(80808080)
     False
     """
-    "*** YOUR CODE HERE ***"
-    if n // 10 == 0:
-        return False
-    while n:
-        last = n % 10
-        n //= 10
-        if last == 8 == (n % 10):
+    prev_eight = False
+    while n > 0:
+        last_digit = n % 10
+        if last_digit == 8 and prev_eight:
             return True
+        elif last_digit == 8:
+            prev_eight = True
+        else:
+            prev_eight = False
+        n = n // 10
     return False
 
-    
 
-
+# Alternate solution
+def double_eights_alt(n):
+    while n:
+        if n % 10 == 8 and n // 10 % 10 == 8:
+            return True
+        n //= 10
+    return False
 

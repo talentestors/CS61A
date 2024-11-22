@@ -5,19 +5,17 @@ test = {
     {
       'cases': [
         {
-          'answer': 'A lambda expression does not automatically bind the function object that it returns to any name.',
+          'answer': 'A lambda expression does not automatically bind the function that it returns to a name.',
           'choices': [
-            'A lambda expression does not automatically bind the function object that it returns to any name.',
+            'A lambda expression does not automatically bind the function that it returns to a name.',
             'A lambda expression cannot have more than two parameters.',
             'A lambda expression cannot return another function.',
             'A def statement can only have one line in its body.'
           ],
           'hidden': False,
           'locked': False,
-          'question': r"""
-          Which of the following statements describes a difference between a def statement
-          and a lambda expression?
-          """
+          'multiline': False,
+          'question': 'Which of the following statements describes a difference between a def statement and a lambda expression?'
         },
         {
           'answer': 'two',
@@ -29,8 +27,9 @@ test = {
           ],
           'hidden': False,
           'locked': False,
+          'multiline': False,
           'question': r"""
-          How many parameters does the following lambda expression have?
+          How many formal parameters does the following lambda expression have?
           lambda a, b: c + d
           """
         },
@@ -44,6 +43,7 @@ test = {
           ],
           'hidden': False,
           'locked': False,
+          'multiline': False,
           'question': 'When is the return expression of a lambda expression executed?'
         }
       ],
@@ -54,6 +54,7 @@ test = {
       'cases': [
         {
           'code': r"""
+          >>> # If Python displays <function...>, type Function, if it errors type Error, if it displays nothing type Nothing
           >>> lambda x: x  # A lambda expression with one parameter x
           Function
           >>> a = lambda x: x  # Assigning a lambda function to the name a
@@ -61,12 +62,12 @@ test = {
           5
           >>> (lambda: 3)()  # Using a lambda expression as an operator in a call exp.
           3
-          >>> b = lambda x: lambda: x  # Lambdas can return other lambdas!
-          >>> c = b(88)
+          >>> b = lambda x, y: lambda: x + y # Lambdas can return other lambdas!
+          >>> c = b(8, 4)
           >>> c
           Function
           >>> c()
-          88
+          12
           >>> d = lambda f: f(4)  # They can have functions as arguments as well
           >>> def square(x):
           ...     return x * x
@@ -74,32 +75,8 @@ test = {
           16
           """,
           'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> x = None # remember to review the rules of WWPD given above!
-          >>> x
-          >>> lambda x: x
-          Function
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> #
-          >>> # Pay attention to the scope of variables
-          >>> z = 3
-          >>> e = lambda x: lambda y: lambda: x + y + z
-          >>> e(0)(1)()
-          4
-          >>> f = lambda z: x + z
-          >>> f(3)
-          Error
-          """,
-          'hidden': False,
-          'locked': False
+          'locked': False,
+          'multiline': False
         },
         {
           'code': r"""
@@ -113,16 +90,17 @@ test = {
           >>> call_thrice = lambda f: lambda x: f(f(f(x)))
           >>> call_thrice(lambda y: y + 1)(0)
           3
-          >>> print_lambda = lambda z: print(z)
+          >>> print_lambda = lambda z: print(z) # When is the return expression of a lambda expression executed?
           >>> print_lambda
           Function
           >>> one_thousand = print_lambda(1000)
           1000
-          >>> one_thousand
+          >>> one_thousand # What did the call to print_lambda return? If it displays nothing, write Nothing
           Nothing
           """,
           'hidden': False,
-          'locked': False
+          'locked': False,
+          'multiline': False
         }
       ],
       'scored': False,

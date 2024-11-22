@@ -1,18 +1,14 @@
 {
     "name": "Lab 11",
-    "endpoint": "cal/cs61a/su20/lab11",
+    "endpoint": "ucb/cs61a/sp24/lab11",
     "src": [
-        "expr.py",
-        "repl.py"
+        "lab11.scm"
     ],
     "tests": {
-        "*.py": "doctest",
+        "lab*.py": "doctest",
         "tests/*.py": "ok_test"
     },
-    "default_tests": [
-        "Name.eval",
-        "CallExpr.eval"
-    ],
+    "default_tests": [],
     "protocols": [
         "restore",
         "file_contents",

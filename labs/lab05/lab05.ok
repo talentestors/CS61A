@@ -1,6 +1,6 @@
 {
     "name": "Lab 5",
-    "endpoint": "cal/cs61a/su20/lab05",
+    "endpoint": "ucb/cs61a/sp24/lab05",
     "src": [
         "lab05.py"
     ],
@@ -9,18 +9,19 @@
         "tests/*.py": "ok_test"
     },
     "default_tests": [
-        "coords",
-        "riffle",
-        "berry_finder",
-        "sprout_leaves",
-        "check_abstraction"
+        "list-mutation",
+        "insert_items",
+        "group_by",
+        "iterators-wwpd",
+        "count_occurrences",
+        "repeated"
     ],
     "protocols": [
         "restore",
         "file_contents",
+        "analytics",
         "unlock",
         "grading",
-        "analytics",
         "backup"
     ]
 }

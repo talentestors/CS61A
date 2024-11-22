@@ -1,25 +1,27 @@
 {
     "name": "Lab 6",
-    "endpoint": "cal/cs61a/su20/lab06",
+    "endpoint": "ucb/cs61a/sp24/lab06",
     "src": [
-        "lab06.py"
+        "lab06.py",
+        "classes.py"
     ],
     "tests": {
         "lab*.py": "doctest",
-        "tests/*.py": "ok_test"
+        "tests/*.py": "ok_test",
+        "classes.py": "doctest"
     },
     "default_tests": [
-        "make_adder_inc",
-        "make_fib",
-        "insert_items",
-        "list-mutation"
+        "Account",
+        "Client",
+        "make_change",
+        "ChangeMachine"
     ],
     "protocols": [
         "restore",
         "file_contents",
+        "analytics",
         "unlock",
         "grading",
-        "analytics",
         "backup"
     ]
 }

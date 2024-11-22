@@ -6,26 +6,7 @@ test = {
       'cases': [
         {
           'code': r"""
-          >>> def even(f):
-          ...     def odd(x):
-          ...         if x < 0:
-          ...             return f(-x)
-          ...         return f(x)
-          ...     return odd
-          >>> steven = lambda x: x
-          >>> stewart = even(steven)
-          >>> stewart
-          Function
-          >>> stewart(61)
-          61
-          >>> stewart(-4)
-          4
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
+          >>> # If Python displays <function...>, type Function, if it errors type Error, if it displays nothing type Nothing
           >>> def cake():
           ...    print('beets')
           ...    def pie():
@@ -43,6 +24,8 @@ test = {
           sweets
           >>> more_chocolate
           'cake'
+          >>> # Reminder: cake, more_cake, and chocolate were defined/assigned in the code above! 
+          >>> # It might be helpful to refer to their definitions on the assignment website so you don't have to scroll as much!
           >>> def snake(x, y):
           ...    if cake == more_cake:
           ...        return chocolate
@@ -58,7 +41,8 @@ test = {
           30
           """,
           'hidden': False,
-          'locked': False
+          'locked': False,
+          'multiline': False
         }
       ],
       'scored': False,
