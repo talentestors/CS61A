@@ -1,1 +1,4 @@
 .DS_Store
+
+.ok_*
+**/__pycache__/
