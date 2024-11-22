@@ -1,19 +1,19 @@
 {
     "name": "Lab 7",
-    "endpoint": "cal/cs61a/su20/lab07",
+    "endpoint": "ucb/cs61a/sp24/lab07",
     "src": [
-        "lab07.py"
+        "lab07.py",
+        "classes.py"
     ],
     "tests": {
         "lab*.py": "doctest",
-        "tests/*.py": "ok_test"
+        "tests/*.py": "ok_test",
+        "classes.py": "doctest"
     },
     "default_tests": [
-        "subseqs",
-        "inc_subseqs",
-        "make_glookup",
-        "trade",
-        "reverse"
+        "Account",
+        "FreeChecking",
+        "duplicate_link"
     ],
     "protocols": [
         "restore",

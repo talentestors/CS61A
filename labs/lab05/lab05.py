@@ -1,57 +1,130 @@
-def coords(fn, seq, lower, upper):
-    """
-    >>> seq = [-4, -2, 0, 1, 3]
-    >>> fn = lambda x: x**2
-    >>> coords(fn, seq, 1, 9)
-    [[-2, 4], [1, 1], [3, 9]]
-    """
-    "*** YOUR CODE HERE ***"
-    return [[x, fn(x)] for x in seq if fn(x) <= upper and fn(x) >= lower]
+HW_SOURCE_FILE=__file__
 
 
-def riffle(deck):
-    """Produces a single, perfect riffle shuffle of DECK, consisting of
-    DECK[0], DECK[M], DECK[1], DECK[M+1], ... where M is position of the
-    second half of the deck.  Assume that len(DECK) is even.
-    >>> riffle([3, 4, 5, 6])
-    [3, 5, 4, 6]
-    >>> riffle(range(20))
-    [0, 10, 1, 11, 2, 12, 3, 13, 4, 14, 5, 15, 6, 16, 7, 17, 8, 18, 9, 19]
-    """
-    "*** YOUR CODE HERE ***"
-    M = len(deck) // 2 
-    return [deck[k//2 + M*(k % 2)] for k in range(len(deck))]
+def insert_items(s, before, after):
+    """Insert after into s after each occurrence of before and then return s.
 
-
-def berry_finder(t):
-    """Returns True if t contains a node with the value 'berry' and 
-    False otherwise.
-
-    >>> scrat = tree('berry')
-    >>> berry_finder(scrat)
+    >>> test_s = [1, 5, 8, 5, 2, 3]
+    >>> new_s = insert_items(test_s, 5, 7)
+    >>> new_s
+    [1, 5, 7, 8, 5, 7, 2, 3]
+    >>> test_s
+    [1, 5, 7, 8, 5, 7, 2, 3]
+    >>> new_s is test_s
     True
-    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-    >>> berry_finder(sproul)
-    True
-    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-    >>> berry_finder(numbers)
-    False
-    >>> t = tree(1, [tree('berry',[tree('not berry')])])
-    >>> berry_finder(t)
+    >>> double_s = [1, 2, 1, 2, 3, 3]
+    >>> double_s = insert_items(double_s, 3, 4)
+    >>> double_s
+    [1, 2, 1, 2, 3, 4, 3, 4]
+    >>> large_s = [1, 4, 8]
+    >>> large_s2 = insert_items(large_s, 4, 4)
+    >>> large_s2
+    [1, 4, 4, 8]
+    >>> large_s3 = insert_items(large_s2, 4, 6)
+    >>> large_s3
+    [1, 4, 6, 4, 6, 8]
+    >>> large_s3 is large_s
     True
     """
     "*** YOUR CODE HERE ***"
-    if label(t) == 'berry':
-        return True
-    else:
-        for son in branches(t):
-            if berry_finder(son):
-                return True
-        return False
+    index = 0
+    while index < len(s):
+        if s[index] == before:
+            s.insert(index+1, after)
+            index += 2
+        else:
+            index += 1
+    return s
 
+
+def group_by(s, fn):
+    """Return a dictionary of lists that together contain the elements of s.
+    The key for each list is the value that fn returns when called on any of the
+    values of that list.
+
+    >>> group_by([12, 23, 14, 45], lambda p: p // 10)
+    {1: [12, 14], 2: [23], 4: [45]}
+    >>> group_by(range(-3, 4), lambda x: x * x)
+    {9: [-3, 3], 4: [-2, 2], 1: [-1, 1], 0: [0]}
+    """
+    grouped = {}
+    for e in s:
+        key = fn(e)
+        if key in grouped:
+            grouped[key].append(e)
+        else:
+            grouped[key] = [e]
+    return grouped
+
+
+def count_occurrences(t, n, x):
+    """Return the number of times that x is equal to one of the
+    first n elements of iterator t.
+
+    >>> s = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+    >>> count_occurrences(s, 10, 9)
+    3
+    >>> t = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+    >>> count_occurrences(t, 3, 10)
+    2
+    >>> u = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
+    >>> count_occurrences(u, 1, 3)  # Only iterate over 3
+    1
+    >>> count_occurrences(u, 3, 2)  # Only iterate over 2, 2, 2
+    3
+    >>> list(u)                     # Ensure that the iterator has advanced the right amount
+    [1, 2, 1, 4, 4, 5, 5, 5]
+    >>> v = iter([4, 1, 6, 6, 7, 7, 6, 6, 2, 2, 2, 5])
+    >>> count_occurrences(v, 6, 6)
+    2
+    """
+    "*** YOUR CODE HERE ***"
+    count = 0
+    for i in range(n):
+        if next(t) == x:
+            count += 1
+    return count
+
+
+def repeated(t, k):
+    """Return the first value in iterator t that appears k times in a row,
+    calling next on t as few times as possible.
+
+    >>> s = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+    >>> repeated(s, 2)
+    9
+    >>> t = iter([10, 9, 10, 9, 9, 10, 8, 8, 8, 7])
+    >>> repeated(t, 3)
+    8
+    >>> u = iter([3, 2, 2, 2, 1, 2, 1, 4, 4, 5, 5, 5])
+    >>> repeated(u, 3)
+    2
+    >>> repeated(u, 3)
+    5
+    >>> v = iter([4, 1, 6, 6, 7, 7, 8, 8, 2, 2, 2, 5])
+    >>> repeated(v, 3)
+    2
+    """
+    assert k > 1
+    "*** YOUR CODE HERE ***"
+    count = 0
+    value = None
+    flag = True
+    while(flag):
+        if count >= k:
+            return value
+        
+        x = next(t)
+
+        if value != x:
+            value = x
+            count = 1
+        else:
+            count += 1
+    return None
 
 def sprout_leaves(t, leaves):
-    """Sprout new leaves containing the data in leaves at each leaf in
+    """Sprout new leaves containing the labels in leaves at each leaf of
     the original tree t and return the resulting tree.
 
     >>> t1 = tree(1, [tree(2), tree(3)])
@@ -85,229 +158,63 @@ def sprout_leaves(t, leaves):
     """
     "*** YOUR CODE HERE ***"
     if is_leaf(t):
-        return tree(label(t), [tree(x) for x in leaves])
-    else:
-        return tree(label(t), [sprout_leaves(branch, leaves) for branch in branches(t)])
+        return tree(label(t), [tree(leaf) for leaf in leaves])
+    return tree(label(t), [sprout_leaves(s, leaves) for s in branches(t)])
 
 
-# Abstraction tests for sprout_leaves and berry_finder
-def check_abstraction():
-    """
-    There's nothing for you to do for this function, it's just here for the extra doctest
-    >>> change_abstraction(True)
-    >>> scrat = tree('berry')
-    >>> berry_finder(scrat)
-    True
-    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
-    >>> berry_finder(sproul)
-    True
-    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
-    >>> berry_finder(numbers)
-    False
-    >>> t = tree(1, [tree('berry',[tree('not berry')])])
-    >>> berry_finder(t)
-    True
-    >>> t1 = tree(1, [tree(2), tree(3)])
-    >>> print_tree(t1)
-    1
-      2
-      3
-    >>> new1 = sprout_leaves(t1, [4, 5])
-    >>> print_tree(new1)
-    1
-      2
-        4
-        5
-      3
-        4
-        5
-
-    >>> t2 = tree(1, [tree(2, [tree(3)])])
-    >>> print_tree(t2)
-    1
-      2
-        3
-    >>> new2 = sprout_leaves(t2, [6, 1, 2])
-    >>> print_tree(new2)
-    1
-      2
-        3
-          6
-          1
-          2
-    >>> change_abstraction(False)
-    """
 
 
-def add_trees(t1, t2):
-    """
-    >>> numbers = tree(1,
-    ...                [tree(2,
-    ...                      [tree(3),
-    ...                       tree(4)]),
-    ...                 tree(5,
-    ...                      [tree(6,
-    ...                            [tree(7)]),
-    ...                       tree(8)])])
-    >>> print_tree(add_trees(numbers, numbers))
-    2
-      4
-        6
-        8
-      10
-        12
-          14
-        16
-    >>> print_tree(add_trees(tree(2), tree(3, [tree(4), tree(5)])))
-    5
-      4
-      5
-    >>> print_tree(add_trees(tree(2, [tree(3)]), tree(2, [tree(3), tree(4)])))
-    4
-      6
-      4
-    >>> print_tree(add_trees(tree(2, [tree(3, [tree(4), tree(5)])]), \
-    tree(2, [tree(3, [tree(4)]), tree(5)])))
-    4
-      6
-        8
-        5
-      5
+def partial_reverse(s, start):
+    """Reverse part of a list in-place, starting with start up to the end of
+    the list.
+
+    >>> a = [1, 2, 3, 4, 5, 6, 7]
+    >>> partial_reverse(a, 2)
+    >>> a
+    [1, 2, 7, 6, 5, 4, 3]
+    >>> partial_reverse(a, 5)
+    >>> a
+    [1, 2, 7, 6, 5, 3, 4]
     """
     "*** YOUR CODE HERE ***"
-    if is_leaf(t1):
-        return tree(label(t1) + label(t2), branches(t2))
-    elif is_leaf(t2):
-        return tree(label(t1) + label(t2), branches(t1))
-    else:
-        fewer_branch_t, more_branch_t = sorted([branches(t1), branches(t2)], key=len)
-        pad_t1 = fewer_branch_t + [tree(i) for i in range(len(more_branch_t) - len(fewer_branch_t))]
-        pad_t2 = more_branch_t
-        return tree(label(t1) + label(t2),\
-                [add_trees(b1, b2) for b1, b2 in zip(pad_t1, pad_t2)])
-
-
-def build_successors_table(tokens):
-    """Return a dictionary: keys are words; values are lists of successors.
-
-    >>> text = ['We', 'came', 'to', 'investigate', ',', 'catch', 'bad', 'guys', 'and', 'to', 'eat', 'pie', '.']
-    >>> table = build_successors_table(text)
-    >>> sorted(table)
-    [',', '.', 'We', 'and', 'bad', 'came', 'catch', 'eat', 'guys', 'investigate', 'pie', 'to']
-    >>> table['to']
-    ['investigate', 'eat']
-    >>> table['pie']
-    ['.']
-    >>> table['.']
-    ['We']
-    """
-    table = {}
-    prev = '.'
-    for word in tokens:
-        if prev not in table:
-            "*** YOUR CODE HERE ***"
-            table[prev] = [word]
-        else:
-            table[prev] += [word]
-        "*** YOUR CODE HERE ***"
-        prev = word
-    return table
-
-def construct_sent(word, table):
-    """Prints a random sentence starting with word, sampling from
-    table.
-
-    >>> table = {'Wow': ['!'], 'Sentences': ['are'], 'are': ['cool'], 'cool': ['.']}
-    >>> construct_sent('Wow', table)
-    'Wow!'
-    >>> construct_sent('Sentences', table)
-    'Sentences are cool.'
-    """
-    import random
-    result = ''
-    while word not in ['.', '!', '?']:
-        "*** YOUR CODE HERE ***"
-        result += ' '
-        result += word
-        word = random.choice(table[word])
-
-    return result.strip() + word
-
-def shakespeare_tokens(path='shakespeare.txt', url='http://composingprograms.com/shakespeare.txt'):
-    """Return the words of Shakespeare's plays as a list."""
-    import os
-    from urllib.request import urlopen
-    if os.path.exists(path):
-        return open('shakespeare.txt', encoding='ascii').read().split()
-    else:
-        shakespeare = urlopen(url)
-        return shakespeare.read().decode(encoding='ascii').split()
-
-# Uncomment the following two lines
-tokens = shakespeare_tokens()
-table = build_successors_table(tokens)
-
-def random_sent():
-    import random
-    return construct_sent(random.choice(table['.']), table)
+    end = len(s) - 1
+    while start < end:
+        s[start], s[end] = s[end], s[start]
+        start, end = start + 1, end - 1
 
 
 
-# Tree ADT
+
+# Tree Data Abstraction
 
 def tree(label, branches=[]):
     """Construct a tree with the given label value and a list of branches."""
-    if change_abstraction.changed:
-        for branch in branches:
-            assert is_tree(branch), 'branches must be trees'
-        return {'label': label, 'branches': list(branches)}
-    else:
-        for branch in branches:
-            assert is_tree(branch), 'branches must be trees'
-        return [label] + list(branches)
+    for branch in branches:
+        assert is_tree(branch), 'branches must be trees'
+    return [label] + list(branches)
 
 def label(tree):
     """Return the label value of a tree."""
-    if change_abstraction.changed:
-        return tree['label']
-    else:
-        return tree[0]
+    return tree[0]
 
 def branches(tree):
     """Return the list of branches of the given tree."""
-    if change_abstraction.changed:
-        return tree['branches']
-    else:
-        return tree[1:]
+    return tree[1:]
 
 def is_tree(tree):
     """Returns True if the given tree is a tree, and False otherwise."""
-    if change_abstraction.changed:
-        if type(tree) != dict or len(tree) != 2:
+    if type(tree) != list or len(tree) < 1:
+        return False
+    for branch in branches(tree):
+        if not is_tree(branch):
             return False
-        for branch in branches(tree):
-            if not is_tree(branch):
-                return False
-        return True
-    else:
-        if type(tree) != list or len(tree) < 1:
-            return False
-        for branch in branches(tree):
-            if not is_tree(branch):
-                return False
-        return True
+    return True
 
 def is_leaf(tree):
     """Returns True if the given tree's list of branches is empty, and False
     otherwise.
     """
     return not branches(tree)
-
-def change_abstraction(change):
-    change_abstraction.changed = change
-
-change_abstraction.changed = False
-
 
 def print_tree(t, indent=0):
     """Print a representation of this tree in which each node is

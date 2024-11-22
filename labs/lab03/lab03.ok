@@ -1,6 +1,6 @@
 {
     "name": "Lab 3",
-    "endpoint": "cal/cs61a/su20/lab03",
+    "endpoint": "ucb/cs61a/sp24/lab03",
     "src": [
         "lab03.py"
     ],
@@ -9,19 +9,21 @@
         "tests/*.py": "ok_test"
     },
     "default_tests": [
-        "recursion-wwpd",
-        "sr-wwpd",
-        "pascal",
-        "repeated",
-        "num_eights",
-        "pingpong"
+        "lists-wwpd",
+        "print_if",
+        "close",
+        "list-comprehensions-wwpd",
+        "close_list",
+        "squares",
+        "double_eights",
+        "make_onion"
     ],
     "protocols": [
         "restore",
         "file_contents",
-        "analytics",
         "unlock",
         "grading",
+        "analytics",
         "backup"
     ]
 }
