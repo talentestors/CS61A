@@ -1,5 +1,4 @@
 from operator import add, mul
-import re
 
 square = lambda x: x * x
 
@@ -32,15 +31,10 @@ def product(n, term):
     >>> product(3, triple)    # 1*3 * 2*3 * 3*3
     162
     """
-    "*** YOUR CODE HERE ***"
-    sum = 1
-    for i in range(1, n+1):
-        print("DEBUG:",i)
-        sum = mul(sum, term(i))
-    return sum
-    
-
-    
+    prod, k = 1, 1
+    while k <= n:
+        prod, k = term(k) * prod, k + 1
+    return prod
 
 
 def accumulate(fuse, start, n, term):
@@ -62,19 +56,25 @@ def accumulate(fuse, start, n, term):
     >>> accumulate(lambda x, y: x + y + 1, 2, 3, square)
     19
     """
-    "*** YOUR CODE HERE ***"
-    sum = start
-    for i in range(1, n+1):
-        sum = fuse(sum, term(i))
-    return sum
+    total, k = start, 1
+    while k <= n:
+        total, k = fuse(total, term(k)), k + 1
+    return total
+
+# Alternative solution
+def accumulate_reverse(fuse, start, n, term):
+    total, k = start, n
+    while k >= 1:
+        total, k = fuse(total, term(k)), k - 1
+    return total
 
 
 def summation_using_accumulate(n, term):
     """Returns the sum: term(1) + ... + term(n), using accumulate.
 
-    >>> summation_using_accumulate(5, square)
+    >>> summation_using_accumulate(5, square) # square(1) + square(2) + ... + square(4) + square(5)
     55
-    >>> summation_using_accumulate(5, triple)
+    >>> summation_using_accumulate(5, triple) # triple(1) + triple(2) + ... + triple(4) + triple(5)
     45
     >>> # This test checks that the body of the function is just a return statement.
     >>> import inspect, ast
@@ -87,9 +87,9 @@ def summation_using_accumulate(n, term):
 def product_using_accumulate(n, term):
     """Returns the product: term(1) * ... * term(n), using accumulate.
 
-    >>> product_using_accumulate(4, square)
+    >>> product_using_accumulate(4, square) # square(1) * square(2) * square(3) * square()
     576
-    >>> product_using_accumulate(6, triple)
+    >>> product_using_accumulate(6, triple) # triple(1) * triple(2) * ... * triple(5) * triple(6)
     524880
     >>> # This test checks that the body of the function is just a return statement.
     >>> import inspect, ast
@@ -105,18 +105,17 @@ def make_repeater(f, n):
     >>> add_three = make_repeater(increment, 3)
     >>> add_three(5)
     8
-    >>> make_repeater(triple, 5)(1) # 3 * 3 * 3 * 3 * 3 * 1
+    >>> make_repeater(triple, 5)(1) # 3 * (3 * (3 * (3 * (3 * 1))))
     243
     >>> make_repeater(square, 2)(5) # square(square(5))
     625
     >>> make_repeater(square, 3)(5) # square(square(square(5)))
     390625
     """
-    "*** YOUR CODE HERE ***"
-    def rep(x):
-        sum = x
-        for i in range(n):
-            sum = f(sum)
-        return sum
-    return rep
+    def repeater(x):
+        k = 0
+        while k < n:
+            x, k = f(x), k + 1
+        return x
+    return repeater
 
