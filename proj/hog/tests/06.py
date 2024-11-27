@@ -7,19 +7,21 @@ test = {
         {
           'code': r"""
           >>> always_roll(3)(10, 20)
-          3
+          16e2cf37e8254529473d9e0a36b75fcb
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
           'code': r"""
           >>> always_roll(0)(99, 99)
-          0
+          962aea5f59fc55bd65ccacf4603c8f22
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         }
       ],

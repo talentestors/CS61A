@@ -34,7 +34,7 @@ test = {
           'question': 'What is a strategy in the context of this game?'
         },
         {
-          'answer': 'strategy1(score1, score0)',
+          'answer': '6092933b58b128fe246b574b1aa79389',
           'choices': [
             'strategy1(score1, score0)',
             'strategy1(score0, score1)',
@@ -42,7 +42,7 @@ test = {
             'strategy1(score0)'
           ],
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False,
           'question': r"""
           If strategy1 is Player 1's strategy function, score0 is
@@ -52,7 +52,7 @@ test = {
           """
         },
         {
-          'answer': '0',
+          'answer': '962aea5f59fc55bd65ccacf4603c8f22',
           'choices': [
             '0',
             '1',
@@ -60,7 +60,7 @@ test = {
             '10'
           ],
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False,
           'question': r"""
           Player 0 has a score of 55, Player 1 has a score of 22,
