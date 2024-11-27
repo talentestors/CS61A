@@ -88,10 +88,11 @@ test = {
         {
           'code': r"""
           >>> boar_brawl(72, 29)
-          1
+          43d176e102c8d95338faf8791aa509b3
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
