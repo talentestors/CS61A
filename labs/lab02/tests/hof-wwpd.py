@@ -41,7 +41,6 @@ test = {
           30
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
