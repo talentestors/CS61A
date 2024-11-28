@@ -13,7 +13,6 @@ test = {
             'A def statement can only have one line in its body.'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'Which of the following statements describes a difference between a def statement and a lambda expression?'
         },
@@ -26,7 +25,6 @@ test = {
             'Not enough information'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': r"""
           How many formal parameters does the following lambda expression have?
@@ -42,7 +40,6 @@ test = {
             'When you pass the lambda expression into another function.'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'When is the return expression of a lambda expression executed?'
         }
@@ -75,7 +72,6 @@ test = {
           16
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -99,7 +95,6 @@ test = {
           Nothing
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],

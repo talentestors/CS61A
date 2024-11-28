@@ -16,7 +16,6 @@ test = {
           True
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
@@ -39,7 +38,6 @@ test = {
           1
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -49,7 +47,6 @@ test = {
           ''
           """,
           'hidden': False,
-          'locked': False,
           'multiline': True
         }
       ],
@@ -75,7 +72,6 @@ test = {
           ''
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
