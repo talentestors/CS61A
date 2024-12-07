@@ -1,6 +1,6 @@
 {
     "name": "Homework 3",
-    "endpoint": "ucb/cs61a/sp24/hw03",
+    "endpoint": "cal/cs61a/fa24/hw03",
     "src": [
         "hw03.py"
     ],
@@ -12,7 +12,7 @@
         "num_eights",
         "digit_distance",
         "interleaved_sum",
-        "count_coins"
+        "count_dollars"
     ],
     "protocols": [
         "restore",
