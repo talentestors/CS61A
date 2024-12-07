@@ -1,5 +1,7 @@
 # CS61A
 
+![wakatime](https://wakatime.com/badge/user/018b66e8-e234-4be9-9887-627312a2cd1e/project/b88cdb71-6a1b-49bf-ac8f-562ea6da32c2.svg)
+
 ### What's is CS61A ?
 
 The CS 61 series is an introduction to computer science, with particular emphasis on software and on machines from a programmer's point of view.
