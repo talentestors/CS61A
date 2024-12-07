@@ -1,10 +1,4 @@
-import re
-
-
-LAB_SOURCE_FILE=__file__
-
-
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def num_eights(n):
@@ -30,12 +24,12 @@ def num_eights(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-    if n == 0:
-        return 0
-    elif n % 10 == 8:
+    if n % 10 == 8:
         return 1 + num_eights(n // 10)
-    return num_eights(n // 10)
+    elif n < 10:
+        return 0
+    else:
+        return num_eights(n // 10)
 
 
 def digit_distance(n):
@@ -43,13 +37,13 @@ def digit_distance(n):
 
     >>> digit_distance(3)
     0
-    >>> digit_distance(777)
+    >>> digit_distance(777) # 0 + 0
     0
-    >>> digit_distance(314)
+    >>> digit_distance(314) # 2 + 3
     5
-    >>> digit_distance(31415926535)
+    >>> digit_distance(31415926535) # 2 + 3 + 3 + 4 + ... + 2
     32
-    >>> digit_distance(3464660003)
+    >>> digit_distance(3464660003)  # 1 + 2 + 2 + 2 + ... + 3
     16
     >>> from construct_check import check
     >>> # ban all loops
@@ -57,11 +51,29 @@ def digit_distance(n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
     if n < 10:
         return 0
-    elif n > 10:
-        return abs(n % 100 // 10 - n % 10) + digit_distance(n // 10)
+    return abs(n % 10 - (n // 10) % 10) + digit_distance(n // 10)
+
+# Alternate solution 1
+def digit_distance_alt(n):
+    def helper(prev, n):
+        if n == 0:
+            return 0
+        dist = abs(prev - n % 10)
+        return dist + helper(n % 10, n // 10)
+    return helper(n % 10, n // 10)
+
+# Alternate solution 2
+def digit_distance_alt_2(n):
+    def helper(dist, prev, n):
+        if n == 0:
+            return dist
+        dist += abs(prev - n % 10)
+        prev = n % 10
+        n //= 10
+        return helper(dist, prev, n)
+    return helper(0, n % 10, n // 10)
 
 
 def interleaved_sum(n, odd_func, even_func):
@@ -82,84 +94,109 @@ def interleaved_sum(n, odd_func, even_func):
     >>> from construct_check import check
     >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['While', 'For', 'Mod']) # ban loops and %
     True
-    """
-    "*** YOUR CODE HERE ***"
-    def odd(m):
-        if(m > n):
-            return 0
-        return odd_func(m) + even(m+1)
-    def even(m):
-        if(m > n):
-            return 0
-        return even_func(m) + odd(m+1)
-    
-    return odd(1)
-
-    
-
-
-def next_larger_coin(coin):
-    """Returns the next larger coin in order.
-    >>> next_larger_coin(1)
-    5
-    >>> next_larger_coin(5)
-    10
-    >>> next_larger_coin(10)
-    25
-    >>> next_larger_coin(2) # Other values return None
-    """
-    if coin == 1:
-        return 5
-    elif coin == 5:
-        return 10
-    elif coin == 10:
-        return 25
-
-def next_smaller_coin(coin):
-    """Returns the next smaller coin in order.
-    >>> next_smaller_coin(25)
-    10
-    >>> next_smaller_coin(10)
-    5
-    >>> next_smaller_coin(5)
-    1
-    >>> next_smaller_coin(2) # Other values return None
-    """
-    if coin == 25:
-        return 10
-    elif coin == 10:
-        return 5
-    elif coin == 5:
-        return 1
-
-def count_coins(total):
-    """Return the number of ways to make change using coins of value of 1, 5, 10, 25.
-    >>> count_coins(15)
-    6
-    >>> count_coins(10)
-    4
-    >>> count_coins(20)
-    9
-    >>> count_coins(100) # How many ways to make change for a dollar?
-    242
-    >>> count_coins(200)
-    1463
-    >>> from construct_check import check
-    >>> # ban iteration
-    >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])
+    >>> check(HW_SOURCE_FILE, 'interleaved_sum', ['BitAnd', 'BitOr', 'BitXor']) # ban bitwise operators, don't worry about these if you don't know what they are
     True
     """
-    "*** YOUR CODE HERE ***"
-    def A(sum, m = 25):
-        if sum == 0:
-            return 1
-        elif sum < 0:
+    def sum_from(k):
+        if k > n:
             return 0
-        elif next_smaller_coin(m) is None:
-            return A(sum - m, m)
-        return A(sum - m, m) + A(sum , next_smaller_coin(m))
+        elif k == n:
+            return odd_func(k)
+        else:
+            return odd_func(k) + even_func(k+1) + sum_from(k + 2)
+    return sum_from(1)
 
-    return A(total, 25)
+
+def next_smaller_dollar(bill):
+    """Returns the next smaller bill in order."""
+    if bill == 100:
+        return 50
+    if bill == 50:
+        return 20
+    if bill == 20:
+        return 10
+    elif bill == 10:
+        return 5
+    elif bill == 5:
+        return 1
+
+def count_dollars(total):
+    """Return the number of ways to make change.
+
+    >>> count_dollars(15)  # 15 $1 bills, 10 $1 & 1 $5 bills, ... 1 $5 & 1 $10 bills
+    6
+    >>> count_dollars(10)  # 10 $1 bills, 5 $1 & 1 $5 bills, 2 $5 bills, 10 $1 bills
+    4
+    >>> count_dollars(20)  # 20 $1 bills, 15 $1 & $5 bills, ... 1 $20 bill
+    10
+    >>> count_dollars(45)  # How many ways to make change for 45 dollars?
+    44
+    >>> count_dollars(100) # How many ways to make change for 100 dollars?
+    344
+    >>> count_dollars(200) # How many ways to make change for 200 dollars?
+    3274
+    >>> from construct_check import check
+    >>> # ban iteration
+    >>> check(HW_SOURCE_FILE, 'count_dollars', ['While', 'For'])
+    True
+    """
+    def constrained_count(total, largest_bill):
+        if total == 0:
+            return 1
+        if total < 0:
+            return 0
+        if largest_bill == None:
+            return 0
+        without_dollar_bill = constrained_count(total, next_smaller_dollar(largest_bill))
+        with_dollar_bill = constrained_count(total - largest_bill, largest_bill)
+        return without_dollar_bill + with_dollar_bill
+    return constrained_count(total, 100)
+
+
+def next_larger_dollar(bill):
+    """Returns the next larger bill in order."""
+    if bill == 1:
+        return 5
+    elif bill == 5:
+        return 10
+    elif bill == 10:
+        return 20
+    elif bill == 20:
+        return 50
+    elif bill == 50:
+        return 100
+
+def count_dollars_upward(total):
+    """Return the number of ways to make change using bills.
+
+    >>> count_dollars_upward(15)  # 15 $1 bills, 10 $1 & 1 $5 bills, ... 1 $5 & 1 $10 bills
+    6
+    >>> count_dollars_upward(10)  # 10 $1 bills, 5 $1 & 1 $5 bills, 2 $5 bills, 10 $1 bills
+    4
+    >>> count_dollars_upward(20)  # 20 $1 bills, 15 $1 & $5 bills, ... 1 $20 bill
+    10
+    >>> count_dollars_upward(45)  # How many ways to make change for 45 dollars?
+    44
+    >>> count_dollars_upward(100) # How many ways to make change for 100 dollars?
+    344
+    >>> count_dollars_upward(200) # How many ways to make change for 200 dollars?
+    3274
+    >>> from construct_check import check
+    >>> # ban iteration
+    >>> check(HW_SOURCE_FILE, 'count_dollars_upward', ['While', 'For'])
+    True
+    """
+    def constrained_count(total, smallest_bill):
+        if total == 0:
+            return 1
+        if total < 0:
+            return 0
+        if smallest_bill == None:
+            return 0
+        without_dollar_bill = constrained_count(total, next_larger_dollar(smallest_bill))
+        with_dollar_bill = constrained_count(total - smallest_bill, smallest_bill)
+        return without_dollar_bill + with_dollar_bill
+    return constrained_count(total, 1)
 
 
 def print_move(origin, destination):
@@ -194,7 +231,13 @@ def move_stack(n, start, end):
     Move the top disk from rod 1 to rod 3
     """
     assert 1 <= start <= 3 and 1 <= end <= 3 and start != end, "Bad start/end"
-    "*** YOUR CODE HERE ***"
+    if n == 1:
+        print_move(start, end)
+    else:
+        other = 6 - start - end
+        move_stack(n-1, start, other)
+        print_move(start, end)
+        move_stack(n-1, other, end)
 
 
 from operator import sub, mul
@@ -210,5 +253,7 @@ def make_anonymous_factorial():
     ...     ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr', 'FunctionDef', 'Recursion'])
     True
     """
-    return lambda 
+    return (lambda f: lambda k: f(f, k))(lambda f, k: k if k == 1 else mul(k, f(f, sub(k, 1))))
+    # Alternate solution:
+    return (lambda f: f(f))(lambda f: lambda x: 1 if x == 0 else x * f(f)(x - 1))
 
