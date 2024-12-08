@@ -1,6 +1,6 @@
 {
     "name": "Lab 3",
-    "endpoint": "ucb/cs61a/sp24/lab03",
+    "endpoint": "cal/cs61a/fa24/lab03",
     "src": [
         "lab03.py"
     ],

@@ -16,7 +16,6 @@ test = {
           [1, 4, 7, 10]
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
