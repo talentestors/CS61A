@@ -1,7 +1,4 @@
-from tokenize import cookie_re
-
-
-LAB_SOURCE_FILE=__file__
+LAB_SOURCE_FILE = __file__
 
 
 def print_if(s, f):
@@ -17,9 +14,8 @@ def print_if(s, f):
     None
     """
     for x in s:
-        if(f(x) is True):
+        if f(x):
             print(x)
-    return None
 
 
 def close(s, k):
@@ -37,8 +33,7 @@ def close(s, k):
     """
     count = 0
     for i in range(len(s)):  # Use a range to loop over indices
-        if(abs(s[i] - i) <= k):
-            print("DEBUG:",s[i])
+        if abs(i - s[i]) <= k:
             count += 1
     return count
 
@@ -54,10 +49,8 @@ def close_list(s, k):
     >>> close_list(t, 2)  # 2, 3, 4, and 5 are all within 2 of their index
     [2, 4, 3, 5]
     """
-    return [___ for i in range(len(s)) if ___]
+    return [s[i] for i in range(len(s)) if abs(i - s[i]) <= k]
 
-
-from math import sqrt
 
 def squares(s):
     """Returns a new list containing square roots of the elements of the
@@ -70,12 +63,12 @@ def squares(s):
     >>> squares(seq)
     []
     """
-    return [round(sqrt(n)) for n in s if sqrt(n) == round(sqrt(n))]
+    return [round(n ** 0.5) for n in s if n == round(n ** 0.5) ** 2]
 
 
 def double_eights(n):
-    """ Returns whether or not n has two digits in row that
-    are the number 8. Assume n has at least two digits in it.
+    """Returns whether or not n has two digits in row that
+    are the number 8.
 
     >>> double_eights(1288)
     True
@@ -89,18 +82,34 @@ def double_eights(n):
     True
     >>> double_eights(78)
     False
-    >>> from construct_check import check
     >>> # ban iteration
+    >>> from construct_check import check
     >>> check(LAB_SOURCE_FILE, 'double_eights', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
-    if(n < 10):
-        return False
-    if(n % 100 // 10 == 8 and n % 10 == 8):
+    last, second_last = n % 10, n // 10 % 10
+    if last == 8 and second_last == 8:
         return True
-    else:
-        return double_eights(n // 10)
+    elif n < 100:
+        return False
+    return double_eights(n // 10)
+
+    # Alternate solution
+    last, second_last = n % 10, n // 10 % 10
+    if n < 10:
+        return False
+    return (last == 8 and second_last == 8) or double_eights(n // 10)
+
+    # Alternate solution with helper function:
+    def helper(num, prev_eight):
+        if num == 0:
+            return False
+        if num % 10 == 8:
+            if prev_eight:
+                return True
+            return helper(num // 10, True)
+        return helper(num // 10, False)
+    return helper(n, False)
 
 
 def make_onion(f, g):

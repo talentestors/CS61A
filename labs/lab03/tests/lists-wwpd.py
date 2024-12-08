@@ -36,7 +36,6 @@ test = {
           3
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
