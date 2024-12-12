@@ -1,6 +1,6 @@
 test = {
   'name': 'Problem 10',
-  'points': 2,
+  'points': 3,
   'suites': [
     {
       'cases': [
@@ -8,25 +8,28 @@ test = {
           'code': r"""
           >>> p0 = [2, 2, 3]
           >>> p1 = [6, 1, 2]
-          >>> fastest_words(match(['What', 'great', 'luck'], [p0, p1]))
-          [['What'], ['great', 'luck']]
+          >>> fastest_words({'words': ['What', 'great', 'luck'], 'times': [p0, p1]})
+          4a4e62b364d558f02688a55484282829
+          # locked
           >>> p0 = [2, 2, 3]
           >>> p1 = [6, 1, 3]
-          >>> fastest_words(match(['What', 'great', 'luck'], [p0, p1]))  # with a tie, choose the first player
-          [['What', 'luck'], ['great']]
+          >>> fastest_words({'words': ['What', 'great', 'luck'], 'times': [p0, p1]})  # with a tie, choose the first player
+          21948e3a2e3aabdfabb12961f4ed55b2
+          # locked
           >>> p2 = [4, 3, 1]
-          >>> fastest_words(match(['What', 'great', 'luck'], [p0, p1, p2]))
-          [['What'], ['great'], ['luck']]
+          >>> fastest_words({'words': ['What', 'great', 'luck'], 'times': [p0, p1, p2]})
+          b4e41659727998e91b11c2efc755a649
+          # locked
           """,
           'hidden': False,
-          'locked': False,
+          'locked': True,
           'multiline': False
         },
         {
           'code': r"""
           >>> p0 = [5, 1, 3]
           >>> p1 = [4, 1, 6]
-          >>> fastest_words(match(['Just', 'have', 'fun'], [p0, p1]))
+          >>> fastest_words({'words': ['Just', 'have', 'fun'], 'times': [p0, p1]})
           [['have', 'fun'], ['Just']]
           >>> p0  # input lists should not be mutated
           [5, 1, 3]
@@ -40,7 +43,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3], [5]]
-          >>> fastest_words(match(['smopple'], p))
+          >>> fastest_words({'words': ['smopple'], 'times': p})
           [['smopple'], []]
           """,
           'hidden': False,
@@ -50,7 +53,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -60,7 +63,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5], [2], [4]]
-          >>> fastest_words(match(['seeingly'], p))
+          >>> fastest_words({'words': ['seeingly'], 'times': p})
           [[], ['seeingly'], []]
           """,
           'hidden': False,
@@ -70,7 +73,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 1, 2, 3, 4], [1, 5, 3, 4, 1], [5, 1, 5, 2, 3]]
-          >>> fastest_words(match(['reundergo', 'unweld', 'handgun', 'hydrometra', 'recessionary'], p))
+          >>> fastest_words({'words': ['reundergo', 'unweld', 'handgun', 'hydrometra', 'recessionary'], 'times': p})
           [['unweld', 'handgun'], ['reundergo', 'recessionary'], ['hydrometra']]
           """,
           'hidden': False,
@@ -80,7 +83,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], [], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], [], []]
           """,
           'hidden': False,
@@ -90,7 +93,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 1, 2]]
-          >>> fastest_words(match(['prebeleve', 'upanishadic', 'ftp'], p))
+          >>> fastest_words({'words': ['prebeleve', 'upanishadic', 'ftp'], 'times': p})
           [['prebeleve', 'upanishadic', 'ftp']]
           """,
           'hidden': False,
@@ -100,7 +103,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 3, 5, 2, 4], [2, 4, 5, 1, 2], [1, 5, 2, 1, 3]]
-          >>> fastest_words(match(['supplies', 'underivedly', 'henter', 'undeserving', 'uncope'], p))
+          >>> fastest_words({'words': ['supplies', 'underivedly', 'henter', 'undeserving', 'uncope'], 'times': p})
           [['underivedly'], ['undeserving', 'uncope'], ['supplies', 'henter']]
           """,
           'hidden': False,
@@ -110,7 +113,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], [], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], [], []]
           """,
           'hidden': False,
@@ -120,7 +123,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 5, 5, 5, 5]]
-          >>> fastest_words(match(['pentarch', 'nihilification', 'krieker', 'laureate', 'antechamber'], p))
+          >>> fastest_words({'words': ['pentarch', 'nihilification', 'krieker', 'laureate', 'antechamber'], 'times': p})
           [['pentarch', 'nihilification', 'krieker', 'laureate', 'antechamber']]
           """,
           'hidden': False,
@@ -130,7 +133,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 4, 4, 3, 4]]
-          >>> fastest_words(match(['urodele', 'sporoid', 'auximone', 'nomenclatural', 'misappreciation'], p))
+          >>> fastest_words({'words': ['urodele', 'sporoid', 'auximone', 'nomenclatural', 'misappreciation'], 'times': p})
           [['urodele', 'sporoid', 'auximone', 'nomenclatural', 'misappreciation']]
           """,
           'hidden': False,
@@ -140,7 +143,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 4, 1, 1, 4, 1], [5, 3, 3, 4, 5, 3], [1, 2, 3, 1, 3, 5]]
-          >>> fastest_words(match(['isoborneol', 'glabrate', 'excision', 'octobass', 'prevolitional', 'archtreasurership'], p))
+          >>> fastest_words({'words': ['isoborneol', 'glabrate', 'excision', 'octobass', 'prevolitional', 'archtreasurership'], 'times': p})
           [['excision', 'octobass', 'archtreasurership'], [], ['isoborneol', 'glabrate', 'prevolitional']]
           """,
           'hidden': False,
@@ -150,7 +153,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 2, 4, 3, 1], [3, 1, 2, 1, 3]]
-          >>> fastest_words(match(['singletree', 'apocyneous', 'imminution', 'uncensuring', 'fungiform'], p))
+          >>> fastest_words({'words': ['singletree', 'apocyneous', 'imminution', 'uncensuring', 'fungiform'], 'times': p})
           [['fungiform'], ['singletree', 'apocyneous', 'imminution', 'uncensuring']]
           """,
           'hidden': False,
@@ -160,7 +163,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -170,7 +173,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -180,7 +183,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 2], [3, 2]]
-          >>> fastest_words(match(['snideness', 'universalization'], p))
+          >>> fastest_words({'words': ['snideness', 'universalization'], 'times': p})
           [['snideness', 'universalization'], []]
           """,
           'hidden': False,
@@ -190,7 +193,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1], [3]]
-          >>> fastest_words(match(['dependably'], p))
+          >>> fastest_words({'words': ['dependably'], 'times': p})
           [['dependably'], []]
           """,
           'hidden': False,
@@ -200,7 +203,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 2, 1]]
-          >>> fastest_words(match(['spaceful', 'cautery', 'wiseness'], p))
+          >>> fastest_words({'words': ['spaceful', 'cautery', 'wiseness'], 'times': p})
           [['spaceful', 'cautery', 'wiseness']]
           """,
           'hidden': False,
@@ -210,7 +213,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 4, 5, 3, 5, 1], [4, 4, 1, 2, 5, 3]]
-          >>> fastest_words(match(['investigatable', 'quadrigenarious', 'protonemal', 'cardiodysneuria', 'provoker', 'associated'], p))
+          >>> fastest_words({'words': ['investigatable', 'quadrigenarious', 'protonemal', 'cardiodysneuria', 'provoker', 'associated'], 'times': p})
           [['investigatable', 'quadrigenarious', 'provoker', 'associated'], ['protonemal', 'cardiodysneuria']]
           """,
           'hidden': False,
@@ -220,7 +223,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 1]]
-          >>> fastest_words(match(['tubuliporoid', 'malleability'], p))
+          >>> fastest_words({'words': ['tubuliporoid', 'malleability'], 'times': p})
           [['tubuliporoid', 'malleability']]
           """,
           'hidden': False,
@@ -230,7 +233,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 1, 2, 4, 4], [3, 4, 3, 3, 5], [1, 2, 5, 1, 2]]
-          >>> fastest_words(match(['shilling', 'shrubbiness', 'demoded', 'commentary', 'housewright'], p))
+          >>> fastest_words({'words': ['shilling', 'shrubbiness', 'demoded', 'commentary', 'housewright'], 'times': p})
           [['shrubbiness', 'demoded'], [], ['shilling', 'commentary', 'housewright']]
           """,
           'hidden': False,
@@ -240,7 +243,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 3, 3, 4, 1]]
-          >>> fastest_words(match(['ungraspable', 'owrelay', 'tangleproof', 'musterable', 'multivincular'], p))
+          >>> fastest_words({'words': ['ungraspable', 'owrelay', 'tangleproof', 'musterable', 'multivincular'], 'times': p})
           [['ungraspable', 'owrelay', 'tangleproof', 'musterable', 'multivincular']]
           """,
           'hidden': False,
@@ -250,7 +253,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 1, 4, 3, 1], [5, 5, 1, 2, 3]]
-          >>> fastest_words(match(['lithosis', 'bogland', 'interclash', 'widespread', 'thumbbird'], p))
+          >>> fastest_words({'words': ['lithosis', 'bogland', 'interclash', 'widespread', 'thumbbird'], 'times': p})
           [['lithosis', 'bogland', 'thumbbird'], ['interclash', 'widespread']]
           """,
           'hidden': False,
@@ -260,7 +263,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 2], [3, 3]]
-          >>> fastest_words(match(['diplosphenal', 'cholecystogram'], p))
+          >>> fastest_words({'words': ['diplosphenal', 'cholecystogram'], 'times': p})
           [['diplosphenal', 'cholecystogram'], []]
           """,
           'hidden': False,
@@ -270,7 +273,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 2]]
-          >>> fastest_words(match(['eugenist', 'karyopyknosis'], p))
+          >>> fastest_words({'words': ['eugenist', 'karyopyknosis'], 'times': p})
           [['eugenist', 'karyopyknosis']]
           """,
           'hidden': False,
@@ -280,7 +283,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 4, 3]]
-          >>> fastest_words(match(['cannily', 'lune', 'heathless'], p))
+          >>> fastest_words({'words': ['cannily', 'lune', 'heathless'], 'times': p})
           [['cannily', 'lune', 'heathless']]
           """,
           'hidden': False,
@@ -290,7 +293,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 4, 3, 3], [2, 1, 3, 4], [2, 2, 4, 4]]
-          >>> fastest_words(match(['postprandially', 'helicogyrate', 'coccidology', 'circumradius'], p))
+          >>> fastest_words({'words': ['postprandially', 'helicogyrate', 'coccidology', 'circumradius'], 'times': p})
           [['coccidology', 'circumradius'], ['postprandially', 'helicogyrate'], []]
           """,
           'hidden': False,
@@ -300,7 +303,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 3], [1, 3], [5, 1]]
-          >>> fastest_words(match(['electrofused', 'incontinent'], p))
+          >>> fastest_words({'words': ['electrofused', 'incontinent'], 'times': p})
           [[], ['electrofused'], ['incontinent']]
           """,
           'hidden': False,
@@ -310,7 +313,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -320,7 +323,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -330,7 +333,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -340,7 +343,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 3, 2, 5, 3], [3, 3, 5, 5, 3]]
-          >>> fastest_words(match(['trigon', 'effluviate', 'unhuman', 'energeia', 'slouch'], p))
+          >>> fastest_words({'words': ['trigon', 'effluviate', 'unhuman', 'energeia', 'slouch'], 'times': p})
           [['trigon', 'effluviate', 'unhuman', 'energeia', 'slouch'], []]
           """,
           'hidden': False,
@@ -350,7 +353,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -360,7 +363,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 1, 1, 1, 2], [1, 1, 5, 3, 4]]
-          >>> fastest_words(match(['boucherism', 'rutabaga', 'fomentation', 'swampside', 'unpopularness'], p))
+          >>> fastest_words({'words': ['boucherism', 'rutabaga', 'fomentation', 'swampside', 'unpopularness'], 'times': p})
           [['rutabaga', 'fomentation', 'swampside', 'unpopularness'], ['boucherism']]
           """,
           'hidden': False,
@@ -370,7 +373,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 1], [1, 2]]
-          >>> fastest_words(match(['introspectionist', 'teeting'], p))
+          >>> fastest_words({'words': ['introspectionist', 'teeting'], 'times': p})
           [['teeting'], ['introspectionist']]
           """,
           'hidden': False,
@@ -380,7 +383,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 3, 1, 2, 3, 3]]
-          >>> fastest_words(match(['cryptodiran', 'coll', 'staurolatry', 'allthing', 'cheatrie', 'inexpedient'], p))
+          >>> fastest_words({'words': ['cryptodiran', 'coll', 'staurolatry', 'allthing', 'cheatrie', 'inexpedient'], 'times': p})
           [['cryptodiran', 'coll', 'staurolatry', 'allthing', 'cheatrie', 'inexpedient']]
           """,
           'hidden': False,
@@ -390,7 +393,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 4, 2, 2, 3], [1, 2, 5, 1, 3]]
-          >>> fastest_words(match(['quodlibetic', 'previdence', 'nonviscous', 'reduplicatively', 'arterioverter'], p))
+          >>> fastest_words({'words': ['quodlibetic', 'previdence', 'nonviscous', 'reduplicatively', 'arterioverter'], 'times': p})
           [['nonviscous', 'arterioverter'], ['quodlibetic', 'previdence', 'reduplicatively']]
           """,
           'hidden': False,
@@ -400,7 +403,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 2, 5, 1, 2, 1], [4, 2, 1, 4, 5, 3]]
-          >>> fastest_words(match(['cactoid', 'quadrialate', 'preflattery', 'emancipation', 'recedent', 'haustement'], p))
+          >>> fastest_words({'words': ['cactoid', 'quadrialate', 'preflattery', 'emancipation', 'recedent', 'haustement'], 'times': p})
           [['cactoid', 'quadrialate', 'emancipation', 'recedent', 'haustement'], ['preflattery']]
           """,
           'hidden': False,
@@ -410,7 +413,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 1, 5, 4, 4, 4], [5, 2, 1, 1, 2, 3], [4, 5, 4, 2, 3, 2]]
-          >>> fastest_words(match(['puboprostatic', 'tumescent', 'keraunograph', 'telecaster', 'selenigenous', 'phycomycete'], p))
+          >>> fastest_words({'words': ['puboprostatic', 'tumescent', 'keraunograph', 'telecaster', 'selenigenous', 'phycomycete'], 'times': p})
           [['puboprostatic', 'tumescent'], ['keraunograph', 'telecaster', 'selenigenous'], ['phycomycete']]
           """,
           'hidden': False,
@@ -420,7 +423,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 4, 2, 4, 2], [1, 5, 1, 4, 5]]
-          >>> fastest_words(match(['indisputableness', 'breastrope', 'hypocist', 'supersemination', 'ethnographically'], p))
+          >>> fastest_words({'words': ['indisputableness', 'breastrope', 'hypocist', 'supersemination', 'ethnographically'], 'times': p})
           [['breastrope', 'supersemination', 'ethnographically'], ['indisputableness', 'hypocist']]
           """,
           'hidden': False,
@@ -430,7 +433,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 4, 3, 3, 5, 4]]
-          >>> fastest_words(match(['repetitiously', 'lecideiform', 'debtless', 'stream', 'loquent', 'leery'], p))
+          >>> fastest_words({'words': ['repetitiously', 'lecideiform', 'debtless', 'stream', 'loquent', 'leery'], 'times': p})
           [['repetitiously', 'lecideiform', 'debtless', 'stream', 'loquent', 'leery']]
           """,
           'hidden': False,
@@ -440,7 +443,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 3, 3, 3, 1, 4]]
-          >>> fastest_words(match(['siscowet', 'nevo', 'driftweed', 'chevronelly', 'victoryless', 'illustrations'], p))
+          >>> fastest_words({'words': ['siscowet', 'nevo', 'driftweed', 'chevronelly', 'victoryless', 'illustrations'], 'times': p})
           [['siscowet', 'nevo', 'driftweed', 'chevronelly', 'victoryless', 'illustrations']]
           """,
           'hidden': False,
@@ -450,7 +453,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 2, 5, 4], [5, 4, 2, 2]]
-          >>> fastest_words(match(['holland', 'nursedom', 'epidictical', 'defortify'], p))
+          >>> fastest_words({'words': ['holland', 'nursedom', 'epidictical', 'defortify'], 'times': p})
           [['holland', 'nursedom'], ['epidictical', 'defortify']]
           """,
           'hidden': False,
@@ -460,7 +463,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 1, 3]]
-          >>> fastest_words(match(['sunbird', 'renewal', 'predivinable'], p))
+          >>> fastest_words({'words': ['sunbird', 'renewal', 'predivinable'], 'times': p})
           [['sunbird', 'renewal', 'predivinable']]
           """,
           'hidden': False,
@@ -470,7 +473,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -480,7 +483,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -490,7 +493,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 3, 4, 2], [5, 2, 2, 3]]
-          >>> fastest_words(match(['tillot', 'douser', 'twankingly', 'eccentrate'], p))
+          >>> fastest_words({'words': ['tillot', 'douser', 'twankingly', 'eccentrate'], 'times': p})
           [['tillot', 'eccentrate'], ['douser', 'twankingly']]
           """,
           'hidden': False,
@@ -500,7 +503,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 4, 5, 3]]
-          >>> fastest_words(match(['reest', 'predigest', 'adipocellulose', 'warriorwise'], p))
+          >>> fastest_words({'words': ['reest', 'predigest', 'adipocellulose', 'warriorwise'], 'times': p})
           [['reest', 'predigest', 'adipocellulose', 'warriorwise']]
           """,
           'hidden': False,
@@ -510,7 +513,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 1, 5, 3, 5]]
-          >>> fastest_words(match(['standing', 'cameroon', 'unpretendingly', 'puppydom', 'lardworm'], p))
+          >>> fastest_words({'words': ['standing', 'cameroon', 'unpretendingly', 'puppydom', 'lardworm'], 'times': p})
           [['standing', 'cameroon', 'unpretendingly', 'puppydom', 'lardworm']]
           """,
           'hidden': False,
@@ -520,7 +523,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -530,7 +533,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 4], [5, 5]]
-          >>> fastest_words(match(['cardioarterial', 'statolatry'], p))
+          >>> fastest_words({'words': ['cardioarterial', 'statolatry'], 'times': p})
           [['cardioarterial', 'statolatry'], []]
           """,
           'hidden': False,
@@ -540,7 +543,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 5, 4, 1]]
-          >>> fastest_words(match(['whirley', 'coldly', 'compendiary', 'grovel'], p))
+          >>> fastest_words({'words': ['whirley', 'coldly', 'compendiary', 'grovel'], 'times': p})
           [['whirley', 'coldly', 'compendiary', 'grovel']]
           """,
           'hidden': False,
@@ -550,7 +553,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 1], [3, 3], [2, 4]]
-          >>> fastest_words(match(['caducicorn', 'monociliated'], p))
+          >>> fastest_words({'words': ['caducicorn', 'monociliated'], 'times': p})
           [['caducicorn', 'monociliated'], [], []]
           """,
           'hidden': False,
@@ -560,7 +563,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -570,7 +573,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 3, 4, 5, 3]]
-          >>> fastest_words(match(['audibility', 'deuteride', 'mimiambic', 'isoimmunity', 'rhinopharynx'], p))
+          >>> fastest_words({'words': ['audibility', 'deuteride', 'mimiambic', 'isoimmunity', 'rhinopharynx'], 'times': p})
           [['audibility', 'deuteride', 'mimiambic', 'isoimmunity', 'rhinopharynx']]
           """,
           'hidden': False,
@@ -580,7 +583,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5], [4], [4]]
-          >>> fastest_words(match(['millage'], p))
+          >>> fastest_words({'words': ['millage'], 'times': p})
           [[], ['millage'], []]
           """,
           'hidden': False,
@@ -590,7 +593,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 1], [5, 4]]
-          >>> fastest_words(match(['inyoite', 'complications'], p))
+          >>> fastest_words({'words': ['inyoite', 'complications'], 'times': p})
           [['inyoite', 'complications'], []]
           """,
           'hidden': False,
@@ -600,7 +603,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 2], [2, 2], [4, 1]]
-          >>> fastest_words(match(['sarcodous', 'microbiological'], p))
+          >>> fastest_words({'words': ['sarcodous', 'microbiological'], 'times': p})
           [['sarcodous'], [], ['microbiological']]
           """,
           'hidden': False,
@@ -610,7 +613,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 4, 1], [2, 2, 3]]
-          >>> fastest_words(match(['chromophilic', 'brabant', 'detailed'], p))
+          >>> fastest_words({'words': ['chromophilic', 'brabant', 'detailed'], 'times': p})
           [['detailed'], ['chromophilic', 'brabant']]
           """,
           'hidden': False,
@@ -620,7 +623,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -630,7 +633,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 1, 1, 1], [3, 1, 3, 3]]
-          >>> fastest_words(match(['allochiral', 'hear', 'snur', 'myosarcomatous'], p))
+          >>> fastest_words({'words': ['allochiral', 'hear', 'snur', 'myosarcomatous'], 'times': p})
           [['hear', 'snur', 'myosarcomatous'], ['allochiral']]
           """,
           'hidden': False,
@@ -640,7 +643,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2], [5]]
-          >>> fastest_words(match(['studiedly'], p))
+          >>> fastest_words({'words': ['studiedly'], 'times': p})
           [['studiedly'], []]
           """,
           'hidden': False,
@@ -650,7 +653,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 3, 3, 5, 2, 5]]
-          >>> fastest_words(match(['katatonia', 'myoporaceous', 'tribunitive', 'mungofa', 'demodectic', 'kolobion'], p))
+          >>> fastest_words({'words': ['katatonia', 'myoporaceous', 'tribunitive', 'mungofa', 'demodectic', 'kolobion'], 'times': p})
           [['katatonia', 'myoporaceous', 'tribunitive', 'mungofa', 'demodectic', 'kolobion']]
           """,
           'hidden': False,
@@ -660,7 +663,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -670,7 +673,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 2], [2, 2]]
-          >>> fastest_words(match(['cheeser', 'cumulation'], p))
+          >>> fastest_words({'words': ['cheeser', 'cumulation'], 'times': p})
           [['cumulation'], ['cheeser']]
           """,
           'hidden': False,
@@ -680,7 +683,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 2], [1, 3]]
-          >>> fastest_words(match(['overemphatic', 'telpherway'], p))
+          >>> fastest_words({'words': ['overemphatic', 'telpherway'], 'times': p})
           [['telpherway'], ['overemphatic']]
           """,
           'hidden': False,
@@ -690,7 +693,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 4], [1, 2], [3, 5]]
-          >>> fastest_words(match(['ultradolichocephalic', 'kinetophone'], p))
+          >>> fastest_words({'words': ['ultradolichocephalic', 'kinetophone'], 'times': p})
           [[], ['ultradolichocephalic', 'kinetophone'], []]
           """,
           'hidden': False,
@@ -700,7 +703,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 5, 3]]
-          >>> fastest_words(match(['protosaurian', 'plumbable', 'siroccoishly'], p))
+          >>> fastest_words({'words': ['protosaurian', 'plumbable', 'siroccoishly'], 'times': p})
           [['protosaurian', 'plumbable', 'siroccoishly']]
           """,
           'hidden': False,
@@ -710,7 +713,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 5, 4, 5, 1, 1]]
-          >>> fastest_words(match(['hydroidean', 'pesterer', 'seedcase', 'rudder', 'muttering', 'individualize'], p))
+          >>> fastest_words({'words': ['hydroidean', 'pesterer', 'seedcase', 'rudder', 'muttering', 'individualize'], 'times': p})
           [['hydroidean', 'pesterer', 'seedcase', 'rudder', 'muttering', 'individualize']]
           """,
           'hidden': False,
@@ -720,7 +723,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 2, 1, 2], [2, 3, 5, 3]]
-          >>> fastest_words(match(['oleostearin', 'stitching', 'theanthropism', 'blate'], p))
+          >>> fastest_words({'words': ['oleostearin', 'stitching', 'theanthropism', 'blate'], 'times': p})
           [['stitching', 'theanthropism', 'blate'], ['oleostearin']]
           """,
           'hidden': False,
@@ -730,7 +733,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 1], [2, 2]]
-          >>> fastest_words(match(['oscillatory', 'geophyte'], p))
+          >>> fastest_words({'words': ['oscillatory', 'geophyte'], 'times': p})
           [['oscillatory', 'geophyte'], []]
           """,
           'hidden': False,
@@ -740,7 +743,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1], [2]]
-          >>> fastest_words(match(['withsave'], p))
+          >>> fastest_words({'words': ['withsave'], 'times': p})
           [['withsave'], []]
           """,
           'hidden': False,
@@ -750,7 +753,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 1, 1], [5, 3, 4]]
-          >>> fastest_words(match(['battlewise', 'dare', 'halibiu'], p))
+          >>> fastest_words({'words': ['battlewise', 'dare', 'halibiu'], 'times': p})
           [['battlewise', 'dare', 'halibiu'], []]
           """,
           'hidden': False,
@@ -760,7 +763,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 1, 4, 2], [4, 3, 5, 5]]
-          >>> fastest_words(match(['muscoid', 'reliquidation', 'broad', 'tugging'], p))
+          >>> fastest_words({'words': ['muscoid', 'reliquidation', 'broad', 'tugging'], 'times': p})
           [['muscoid', 'reliquidation', 'broad', 'tugging'], []]
           """,
           'hidden': False,
@@ -770,7 +773,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 2, 5]]
-          >>> fastest_words(match(['trophobiosis', 'parascenium', 'gibbet'], p))
+          >>> fastest_words({'words': ['trophobiosis', 'parascenium', 'gibbet'], 'times': p})
           [['trophobiosis', 'parascenium', 'gibbet']]
           """,
           'hidden': False,
@@ -780,7 +783,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 1, 4]]
-          >>> fastest_words(match(['nonsparking', 'calool', 'dorsopleural'], p))
+          >>> fastest_words({'words': ['nonsparking', 'calool', 'dorsopleural'], 'times': p})
           [['nonsparking', 'calool', 'dorsopleural']]
           """,
           'hidden': False,
@@ -790,7 +793,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 4], [4, 4], [5, 3]]
-          >>> fastest_words(match(['unexcusableness', 'bismuthyl'], p))
+          >>> fastest_words({'words': ['unexcusableness', 'bismuthyl'], 'times': p})
           [['unexcusableness'], [], ['bismuthyl']]
           """,
           'hidden': False,
@@ -800,7 +803,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 4, 5, 5, 2], [1, 4, 1, 2, 4]]
-          >>> fastest_words(match(['evolution', 'intransigency', 'improperly', 'angiophorous', 'urinogenital'], p))
+          >>> fastest_words({'words': ['evolution', 'intransigency', 'improperly', 'angiophorous', 'urinogenital'], 'times': p})
           [['intransigency', 'urinogenital'], ['evolution', 'improperly', 'angiophorous']]
           """,
           'hidden': False,
@@ -810,7 +813,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 5, 1]]
-          >>> fastest_words(match(['penceless', 'bromothymol', 'reticuloramose'], p))
+          >>> fastest_words({'words': ['penceless', 'bromothymol', 'reticuloramose'], 'times': p})
           [['penceless', 'bromothymol', 'reticuloramose']]
           """,
           'hidden': False,
@@ -820,7 +823,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 4, 5, 2, 2, 3]]
-          >>> fastest_words(match(['monument', 'appressor', 'tutu', 'gentilize', 'trihemimeral', 'bifid'], p))
+          >>> fastest_words({'words': ['monument', 'appressor', 'tutu', 'gentilize', 'trihemimeral', 'bifid'], 'times': p})
           [['monument', 'appressor', 'tutu', 'gentilize', 'trihemimeral', 'bifid']]
           """,
           'hidden': False,
@@ -830,7 +833,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 4, 3, 3, 5, 2]]
-          >>> fastest_words(match(['uncivilized', 'pairer', 'keratonyxis', 'chemitypy', 'checkroll', 'hymnographer'], p))
+          >>> fastest_words({'words': ['uncivilized', 'pairer', 'keratonyxis', 'chemitypy', 'checkroll', 'hymnographer'], 'times': p})
           [['uncivilized', 'pairer', 'keratonyxis', 'chemitypy', 'checkroll', 'hymnographer']]
           """,
           'hidden': False,
@@ -840,7 +843,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2], [4], [3]]
-          >>> fastest_words(match(['inclementness'], p))
+          >>> fastest_words({'words': ['inclementness'], 'times': p})
           [['inclementness'], [], []]
           """,
           'hidden': False,
@@ -850,7 +853,7 @@ test = {
         {
           'code': r"""
           >>> p = [[], []]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[], []]
           """,
           'hidden': False,
@@ -860,7 +863,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 1, 3, 1, 2, 4]]
-          >>> fastest_words(match(['bescorch', 'rodding', 'disawa', 'gastradenitis', 'cottabus', 'prescapularis'], p))
+          >>> fastest_words({'words': ['bescorch', 'rodding', 'disawa', 'gastradenitis', 'cottabus', 'prescapularis'], 'times': p})
           [['bescorch', 'rodding', 'disawa', 'gastradenitis', 'cottabus', 'prescapularis']]
           """,
           'hidden': False,
@@ -870,7 +873,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4], [5], [4]]
-          >>> fastest_words(match(['transmundane'], p))
+          >>> fastest_words({'words': ['transmundane'], 'times': p})
           [['transmundane'], [], []]
           """,
           'hidden': False,
@@ -880,7 +883,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 3]]
-          >>> fastest_words(match(['becense', 'hyperingenuity'], p))
+          >>> fastest_words({'words': ['becense', 'hyperingenuity'], 'times': p})
           [['becense', 'hyperingenuity']]
           """,
           'hidden': False,
@@ -890,7 +893,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 3, 4], [5, 5, 3], [3, 2, 3]]
-          >>> fastest_words(match(['interventional', 'demiditone', 'chrysophilite'], p))
+          >>> fastest_words({'words': ['interventional', 'demiditone', 'chrysophilite'], 'times': p})
           [[], ['chrysophilite'], ['interventional', 'demiditone']]
           """,
           'hidden': False,
@@ -900,7 +903,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 5, 3, 5, 1, 3], [1, 4, 3, 1, 3, 4], [1, 3, 1, 4, 4, 5]]
-          >>> fastest_words(match(['pyritology', 'marbleize', 'blooddrop', 'prickingly', 'ecole', 'capitellar'], p))
+          >>> fastest_words({'words': ['pyritology', 'marbleize', 'blooddrop', 'prickingly', 'ecole', 'capitellar'], 'times': p})
           [['ecole', 'capitellar'], ['pyritology', 'prickingly'], ['marbleize', 'blooddrop']]
           """,
           'hidden': False,
@@ -910,7 +913,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 5, 4, 5, 4, 3], [1, 3, 1, 1, 3, 5]]
-          >>> fastest_words(match(['epicotyledonary', 'hiro', 'tremolo', 'ringgiving', 'pignoratitious', 'untakableness'], p))
+          >>> fastest_words({'words': ['epicotyledonary', 'hiro', 'tremolo', 'ringgiving', 'pignoratitious', 'untakableness'], 'times': p})
           [['untakableness'], ['epicotyledonary', 'hiro', 'tremolo', 'ringgiving', 'pignoratitious']]
           """,
           'hidden': False,
@@ -920,7 +923,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 3], [4, 3], [5, 5]]
-          >>> fastest_words(match(['tutoyer', 'fibrilliferous'], p))
+          >>> fastest_words({'words': ['tutoyer', 'fibrilliferous'], 'times': p})
           [['tutoyer', 'fibrilliferous'], [], []]
           """,
           'hidden': False,
@@ -930,7 +933,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 2, 2, 1]]
-          >>> fastest_words(match(['aneuploidy', 'unrubified', 'dynamic', 'twistable'], p))
+          >>> fastest_words({'words': ['aneuploidy', 'unrubified', 'dynamic', 'twistable'], 'times': p})
           [['aneuploidy', 'unrubified', 'dynamic', 'twistable']]
           """,
           'hidden': False,
@@ -940,7 +943,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 2, 2, 3]]
-          >>> fastest_words(match(['pholadoid', 'toxicodermatitis', 'gallification', 'survival'], p))
+          >>> fastest_words({'words': ['pholadoid', 'toxicodermatitis', 'gallification', 'survival'], 'times': p})
           [['pholadoid', 'toxicodermatitis', 'gallification', 'survival']]
           """,
           'hidden': False,
@@ -950,7 +953,7 @@ test = {
         {
           'code': r"""
           >>> p = [[3, 3, 1, 4, 5], [5, 2, 3, 2, 3]]
-          >>> fastest_words(match(['principiate', 'archinfamy', 'cacomixle', 'endonuclear', 'writer'], p))
+          >>> fastest_words({'words': ['principiate', 'archinfamy', 'cacomixle', 'endonuclear', 'writer'], 'times': p})
           [['principiate', 'cacomixle'], ['archinfamy', 'endonuclear', 'writer']]
           """,
           'hidden': False,
@@ -960,7 +963,7 @@ test = {
         {
           'code': r"""
           >>> p = [[5, 5, 2, 4]]
-          >>> fastest_words(match(['mechanicalist', 'losing', 'emancipation', 'counterquarterly'], p))
+          >>> fastest_words({'words': ['mechanicalist', 'losing', 'emancipation', 'counterquarterly'], 'times': p})
           [['mechanicalist', 'losing', 'emancipation', 'counterquarterly']]
           """,
           'hidden': False,
@@ -970,7 +973,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 5, 1], [2, 1, 3]]
-          >>> fastest_words(match(['subframe', 'infinitude', 'astrochemist'], p))
+          >>> fastest_words({'words': ['subframe', 'infinitude', 'astrochemist'], 'times': p})
           [['astrochemist'], ['subframe', 'infinitude']]
           """,
           'hidden': False,
@@ -980,7 +983,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2]]
-          >>> fastest_words(match(['isocheimal'], p))
+          >>> fastest_words({'words': ['isocheimal'], 'times': p})
           [['isocheimal']]
           """,
           'hidden': False,
@@ -990,7 +993,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 4, 4, 5], [5, 4, 5, 2]]
-          >>> fastest_words(match(['mistresshood', 'lazzarone', 'define', 'unmudded'], p))
+          >>> fastest_words({'words': ['mistresshood', 'lazzarone', 'define', 'unmudded'], 'times': p})
           [['mistresshood', 'lazzarone', 'define'], ['unmudded']]
           """,
           'hidden': False,
@@ -1000,7 +1003,7 @@ test = {
         {
           'code': r"""
           >>> p = [[4, 5, 2, 2, 4], [3, 5, 4, 5, 1]]
-          >>> fastest_words(match(['either', 'ungenuine', 'dealable', 'pejorism', 'cointersecting'], p))
+          >>> fastest_words({'words': ['either', 'ungenuine', 'dealable', 'pejorism', 'cointersecting'], 'times': p})
           [['ungenuine', 'dealable', 'pejorism'], ['either', 'cointersecting']]
           """,
           'hidden': False,
@@ -1010,7 +1013,7 @@ test = {
         {
           'code': r"""
           >>> p = [[2, 1]]
-          >>> fastest_words(match(['narcoanesthesia', 'tanbur'], p))
+          >>> fastest_words({'words': ['narcoanesthesia', 'tanbur'], 'times': p})
           [['narcoanesthesia', 'tanbur']]
           """,
           'hidden': False,
@@ -1020,7 +1023,7 @@ test = {
         {
           'code': r"""
           >>> p = [[]]
-          >>> fastest_words(match([], p))
+          >>> fastest_words({'words': [], 'times': p})
           [[]]
           """,
           'hidden': False,
@@ -1030,7 +1033,7 @@ test = {
         {
           'code': r"""
           >>> p = [[1, 4]]
-          >>> fastest_words(match(['overappraise', 'disdiapason'], p))
+          >>> fastest_words({'words': ['overappraise', 'disdiapason'], 'times': p})
           [['overappraise', 'disdiapason']]
           """,
           'hidden': False,
@@ -1040,34 +1043,9 @@ test = {
       ],
       'scored': True,
       'setup': r"""
-      >>> from cats import match, fastest_words
+      >>> from cats import fastest_words
       """,
       'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> test.swap_implementations(cats) # Make sure the abstraction barrier isn't crossed!
-          >>> p0 = [2, 2, 3]
-          >>> p1 = [6, 1, 2]
-          >>> cats.fastest_words(cats.match(['What', 'great', 'luck'], [p0, p1]))
-          [['What'], ['great', 'luck']]
-          """,
-          'hidden': False,
-          'locked': False,
-          'multiline': False
-        }
-      ],
-      'scored': True,
-      'setup': r"""
-      >>> import cats
-      >>> import tests.abstraction_check as test # Make sure the abstraction barrier isn't crossed!
-      """,
-      'teardown': r"""
-      >>> test.restore_implementations(cats)
-      """,
       'type': 'doctest'
     }
   ]
