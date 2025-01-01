@@ -172,7 +172,3 @@ def above_root(t):
             process(b)
     process(t)
 
-
-
-
-
