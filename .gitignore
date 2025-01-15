@@ -3,6 +3,7 @@
 .ok_*
 **/__pycache__/
 /archive/
+__pycache__/
 
 .vscode/
 .idea/
