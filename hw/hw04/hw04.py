@@ -1,3 +1,25 @@
+def shuffle(s):
+    """Return a shuffled list that interleaves the two halves of s.
+
+    >>> shuffle(range(6))
+    [0, 3, 1, 4, 2, 5]
+    >>> letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    >>> shuffle(letters)
+    ['a', 'e', 'b', 'f', 'c', 'g', 'd', 'h']
+    >>> shuffle(shuffle(letters))
+    ['a', 'c', 'e', 'g', 'b', 'd', 'f', 'h']
+    >>> letters  # Original list should not be modified
+    ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    """
+    assert len(s) % 2 == 0, 'len(seq) must be even'
+    length = len(s)
+    half = length // 2
+    shuffled = []
+    for i in range(half):
+        shuffled += [s[i], s[i + half]]
+    return shuffled
+
+
 def deep_map(f, s):
     """Replace all non-list elements x with f(x) in the nested list s.
 
@@ -20,55 +42,15 @@ def deep_map(f, s):
     >>> s3 is s2[1]
     True
     """
-    def change(s1):
-        for i in range (len(s1)):
-            if isinstance(s1[i], list):
-                change(s1[i])
-            else:
-                s1[i] =  f(s1[i])
-    return change(s)
+    for i in range(len(s)):
+        if type(s[i]) == list:  # noqa: E721
+            deep_map(f, s[i])
+        else:
+            s[i] = f(s[i])
+
 
 HW_SOURCE_FILE=__file__
 
-
-def mobile(left, right):
-    """Construct a mobile from a left arm and a right arm."""
-    assert is_arm(left), "left must be an arm"
-    assert is_arm(right), "right must be an arm"
-    return ['mobile', left, right]
-
-def is_mobile(m):
-    """Return whether m is a mobile."""
-    return type(m) == list and len(m) == 3 and m[0] == 'mobile'
-
-def left(m):
-    """Select the left arm of a mobile."""
-    assert is_mobile(m), "must call left on a mobile"
-    return m[1]
-
-def right(m):
-    """Select the right arm of a mobile."""
-    assert is_mobile(m), "must call right on a mobile"
-    return m[2]
-
-def arm(length, mobile_or_planet):
-    """Construct an arm: a length of rod with a mobile or planet at the end."""
-    assert is_mobile(mobile_or_planet) or is_planet(mobile_or_planet)
-    return ['arm', length, mobile_or_planet]
-
-def is_arm(s):
-    """Return whether s is an arm."""
-    return type(s) == list and len(s) == 3 and s[0] == 'arm'
-
-def length(s):
-    """Select the length of an arm."""
-    assert is_arm(s), "must call length on an arm"
-    return s[1]
-
-def end(s):
-    """Select the mobile or planet hanging at the end of an arm."""
-    assert is_arm(s), "must call end on an arm"
-    return s[2]
 
 def planet(mass):
     """Construct a planet of some mass."""
@@ -133,10 +115,35 @@ def balanced(m):
     if is_planet(m):
         return True
     else:
-        left_mass =  total_mass(end(left(m))) * length(left(m))
-        right_mass = total_mass(end(right(m))) * length(right(m))
-        return left_mass == right_mass and balanced(end(left(m))) and balanced(end(right(m)))
+        left_end, right_end = end(left(m)), end(right(m))
+        left_torque = total_mass(left_end) * length(left(m))
+        right_torque = total_mass(right_end) * length(right(m))
+        return balanced(left_end) and balanced(right_end) and left_torque == right_torque
 
+
+def berry_finder(t):
+    """Returns True if t contains a node with the value 'berry' and 
+    False otherwise.
+
+    >>> scrat = tree('berry')
+    >>> berry_finder(scrat)
+    True
+    >>> sproul = tree('roots', [tree('branch1', [tree('leaf'), tree('berry')]), tree('branch2')])
+    >>> berry_finder(sproul)
+    True
+    >>> numbers = tree(1, [tree(2), tree(3, [tree(4), tree(5)]), tree(6, [tree(7)])])
+    >>> berry_finder(numbers)
+    False
+    >>> t = tree(1, [tree('berry',[tree('not berry')])])
+    >>> berry_finder(t)
+    True
+    """
+    if label(t) == 'berry':
+        return True
+    for b in branches(t):
+        if berry_finder(b):
+            return True
+    return False
 
 
 HW_SOURCE_FILE=__file__
@@ -151,14 +158,50 @@ def max_path_sum(t):
     >>> max_path_sum(t2) # 5, 2, 10
     17
     """
-    "*** YOUR CODE HERE ***"
-
     if is_leaf(t):
         return label(t)
     else:
-        return label(t) + max([max_path_sum(x) for x in branches(t)])
-            
+        return label(t) + max(max_path_sum(b) for b in branches(t))
 
+
+def mobile(left, right):
+    """Construct a mobile from a left arm and a right arm."""
+    assert is_arm(left), "left must be an arm"
+    assert is_arm(right), "right must be an arm"
+    return ['mobile', left, right]
+
+def is_mobile(m):
+    """Return whether m is a mobile."""
+    return type(m) == list and len(m) == 3 and m[0] == 'mobile'
+
+def left(m):
+    """Select the left arm of a mobile."""
+    assert is_mobile(m), "must call left on a mobile"
+    return m[1]
+
+def right(m):
+    """Select the right arm of a mobile."""
+    assert is_mobile(m), "must call right on a mobile"
+    return m[2]
+
+def arm(length, mobile_or_planet):
+    """Construct an arm: a length of rod with a mobile or planet at the end."""
+    assert is_mobile(mobile_or_planet) or is_planet(mobile_or_planet)
+    return ['arm', length, mobile_or_planet]
+
+def is_arm(s):
+    """Return whether s is an arm."""
+    return type(s) == list and len(s) == 3 and s[0] == 'arm'
+
+def length(s):
+    """Select the length of an arm."""
+    assert is_arm(s), "must call length on an arm"
+    return s[1]
+
+def end(s):
+    """Select the mobile or planet hanging at the end of an arm."""
+    assert is_arm(s), "must call end on an arm"
+    return s[2]
 
 
 
