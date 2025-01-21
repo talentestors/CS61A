@@ -1,4 +1,4 @@
-HW_SOURCE_FILE=__file__
+HW_SOURCE_FILE = __file__
 
 
 def insert_items(s, before, after):
@@ -26,14 +26,12 @@ def insert_items(s, before, after):
     >>> large_s3 is large_s
     True
     """
-    "*** YOUR CODE HERE ***"
-    index = 0
-    while index < len(s):
-        if s[index] == before:
-            s.insert(index+1, after)
-            index += 2
-        else:
-            index += 1
+    i = 0
+    while i < len(s):
+        if s[i] == before:
+            s.insert(i + 1, after)
+            i += 1
+        i += 1
     return s
 
 
@@ -48,12 +46,12 @@ def group_by(s, fn):
     {9: [-3, 3], 4: [-2, 2], 1: [-1, 1], 0: [0]}
     """
     grouped = {}
-    for e in s:
-        key = fn(e)
+    for k in s:
+        key = fn(k)
         if key in grouped:
-            grouped[key].append(e)
+            grouped[key].append(k)
         else:
-            grouped[key] = [e]
+            grouped[key] = [k]
     return grouped
 
 
@@ -78,11 +76,13 @@ def count_occurrences(t, n, x):
     >>> count_occurrences(v, 6, 6)
     2
     """
-    "*** YOUR CODE HERE ***"
     count = 0
-    for i in range(n):
-        if next(t) == x:
-            count += 1
+    for _ in range(n):
+        try:
+            if next(t) == x:
+                count += 1
+        except StopIteration:
+            break
     return count
 
 
@@ -106,22 +106,21 @@ def repeated(t, k):
     2
     """
     assert k > 1
-    "*** YOUR CODE HERE ***"
-    count = 0
-    value = None
-    flag = True
-    while(flag):
-        if count >= k:
-            return value
-        
-        x = next(t)
+    count = 1
+    prev = next(t)
+    while True:
+        try:
+            curr = next(t)
+            if curr == prev:
+                count += 1
+                if count == k:
+                    return curr
+            else:
+                count = 1
+                prev = curr
+        except StopIteration:
+            break
 
-        if value != x:
-            value = x
-            count = 1
-        else:
-            count += 1
-    return None
 
 def sprout_leaves(t, leaves):
     """Sprout new leaves containing the labels in leaves at each leaf of
@@ -156,12 +155,10 @@ def sprout_leaves(t, leaves):
           1
           2
     """
-    "*** YOUR CODE HERE ***"
     if is_leaf(t):
         return tree(label(t), [tree(leaf) for leaf in leaves])
-    return tree(label(t), [sprout_leaves(s, leaves) for s in branches(t)])
-
-
+    else:
+        return tree(label(t), [sprout_leaves(b, leaves) for b in branches(t)])
 
 
 def partial_reverse(s, start):
@@ -176,30 +173,32 @@ def partial_reverse(s, start):
     >>> a
     [1, 2, 7, 6, 5, 3, 4]
     """
-    "*** YOUR CODE HERE ***"
-    end = len(s) - 1
-    while start < end:
-        s[start], s[end] = s[end], s[start]
-        start, end = start + 1, end - 1
-
-
+    end = len(s)
+    while start < end - 1:
+        s[start], s[end - 1] = s[end - 1], s[start]
+        start += 1
+        end -= 1
 
 
 # Tree Data Abstraction
 
+
 def tree(label, branches=[]):
     """Construct a tree with the given label value and a list of branches."""
     for branch in branches:
-        assert is_tree(branch), 'branches must be trees'
+        assert is_tree(branch), "branches must be trees"
     return [label] + list(branches)
+
 
 def label(tree):
     """Return the label value of a tree."""
     return tree[0]
 
+
 def branches(tree):
     """Return the list of branches of the given tree."""
     return tree[1:]
+
 
 def is_tree(tree):
     """Returns True if the given tree is a tree, and False otherwise."""
@@ -210,11 +209,13 @@ def is_tree(tree):
             return False
     return True
 
+
 def is_leaf(tree):
     """Returns True if the given tree's list of branches is empty, and False
     otherwise.
     """
     return not branches(tree)
+
 
 def print_tree(t, indent=0):
     """Print a representation of this tree in which each node is
@@ -235,9 +236,10 @@ def print_tree(t, indent=0):
       6
         7
     """
-    print('  ' * indent + str(label(t)))
+    print("  " * indent + str(label(t)))
     for b in branches(t):
         print_tree(b, indent + 1)
+
 
 def copy_tree(t):
     """Returns a copy of t. Only for testing purposes.
@@ -249,4 +251,3 @@ def copy_tree(t):
     5
     """
     return tree(label(t), [copy_tree(b) for b in branches(t)])
-
