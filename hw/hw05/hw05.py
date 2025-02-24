@@ -1,9 +1,7 @@
-from asyncio.windows_events import NULL
-
-
 def hailstone(n):
-    """Q1: Yields the elements of the hailstone sequence starting at n.
-       At the end of the sequence, yield 1 infinitely.
+    """
+    Yields the elements of the hailstone sequence starting at n.
+    At the end of the sequence, yield 1 infinitely.
 
     >>> hail_gen = hailstone(10)
     >>> [next(hail_gen) for _ in range(10)]
@@ -11,20 +9,21 @@ def hailstone(n):
     >>> next(hail_gen)
     1
     """
-    "*** YOUR CODE HERE ***"
     while n!= 1:
         yield n
         if n % 2 == 0:
             n //= 2
         else:
             n = 3 * n + 1
-
     while True:
         yield 1 
 
 
 def merge(a, b):
-    """Q2:
+    """
+    Return a generator that has all of the elements of generators a and b,
+    in increasing order, without duplicates.
+
     >>> def sequence(start, step):
     ...     while True:
     ...         yield start
@@ -35,26 +34,46 @@ def merge(a, b):
     >>> [next(result) for _ in range(10)]
     [2, 3, 5, 7, 8, 9, 11, 13, 14, 15]
     """
-    "*** YOUR CODE HERE ***"
-    n = NULL
-    numa = next(a)
-    numb = next(b)
-    while(True):
-        if numa < numb:
-            n = numa
-            numa = next(a)
-        elif numa == numb:
-            numa = next(a)
-            continue
+    a_val, b_val = next(a), next(b)
+    while True:
+        if a_val == b_val:
+            yield a_val
+            a_val, b_val = next(a), next(b)
+        elif a_val < b_val:
+            yield a_val
+            a_val = next(a)
         else:
-            n = numb
-            numb = next(b)
-        yield n
+            yield b_val
+            b_val = next(b)
 
+
+def stair_ways(n):
+    """
+    Yield all the ways to climb a set of n stairs taking
+    1 or 2 steps at a time.
+
+    >>> list(stair_ways(0))
+    [[]]
+    >>> s_w = stair_ways(4)
+    >>> sorted([next(s_w) for _ in range(5)])
+    [[1, 1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 2]]
+    >>> list(s_w) # Ensure you're not yielding extra
+    []
+    """
+    if n == 0:
+        yield []
+    elif n == 1:
+        yield [1]
+    else:
+        for way in stair_ways(n - 1):
+            yield [1] + way
+        for way in stair_ways(n - 2):
+            yield [2] + way
 
 
 def yield_paths(t, value):
-    """Q4: Yields all possible paths from the root of t to a node with the label
+    """
+    Yields all possible paths from the root of t to a node with the label
     value as a list.
 
     >>> t1 = tree(1, [tree(2, [tree(3), tree(4, [tree(6)]), tree(5)]), tree(5)])
@@ -90,9 +109,8 @@ def yield_paths(t, value):
     if label(t) == value:
         yield [value]
     for b in branches(t):
-        for c in yield_paths(b, value):
-            # print(c)
-            yield [label(t)] + c
+        for path in yield_paths(b, value):
+            yield [label(t)] + path
 
 
 
