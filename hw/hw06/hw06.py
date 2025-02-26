@@ -108,7 +108,6 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     res = Link.empty
-
     while n != 0:
         res = Link(n % 10, res)
         n //= 10
