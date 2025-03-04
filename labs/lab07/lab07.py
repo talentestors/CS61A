@@ -107,7 +107,6 @@ def duplicate_link(s, val):
         duplicate_link(s.rest, val)
 
 
-
 class Link:
     """A linked list.
 
