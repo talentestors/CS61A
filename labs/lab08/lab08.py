@@ -36,7 +36,7 @@ def prune_small(t, n):
     Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
     """
     while len(t.branches) > n:
-        largest = max(t.branches, key = lambda x : x.label)
+        largest = max(t.branches, key=lambda x: x.label)
         t.branches.remove(largest)
     for x in t.branches:
         prune_small(x, n)
@@ -81,6 +81,7 @@ class Tree:
     >>> t.branches[1].is_leaf()
     True
     """
+
     def __init__(self, label, branches=[]):
         for b in branches:
             assert isinstance(b, Tree)
@@ -92,16 +93,16 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
-        return print_tree(self).rstrip()
 
+        return print_tree(self).rstrip()
