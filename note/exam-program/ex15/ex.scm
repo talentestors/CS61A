@@ -22,4 +22,3 @@
     (if (odd? (car s))
       (list (list (car s)))
       nil)))
-
