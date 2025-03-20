@@ -10,7 +10,6 @@ test = {
           (1 2 3 4 5)
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -19,7 +18,6 @@ test = {
           (2 1 4 3 5)
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -28,7 +26,6 @@ test = {
           (1 1 2 2)
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -37,7 +34,6 @@ test = {
           (1 7 2 8 3 4 5 6)
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
@@ -56,7 +52,6 @@ test = {
           (1 2 3 4 5 6)
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -69,7 +64,6 @@ test = {
           ()
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],

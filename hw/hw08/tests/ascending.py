@@ -10,7 +10,6 @@ test = {
           #t
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -19,7 +18,6 @@ test = {
           #f
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -28,7 +26,6 @@ test = {
           #t
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -37,7 +34,6 @@ test = {
           #f
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         },
         {
@@ -46,7 +42,6 @@ test = {
           #t
           """,
           'hidden': False,
-          'locked': False,
           'multiline': False
         }
       ],
