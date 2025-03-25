@@ -14,7 +14,6 @@ test = {
             'None of these'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'Write out the Python expression that returns a `Pair` representing the given expression: (+ (- 2 4) 6 8)'
         },
@@ -29,7 +28,6 @@ test = {
             'None of these'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'What is the operator of the call expression?'
         },
@@ -43,7 +41,6 @@ test = {
             'p.first.rest'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': r"""
           If the `Pair` you constructed in the previous part was bound to the name `p`,
@@ -60,7 +57,6 @@ test = {
             'p.first.rest'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': r"""
           If the `Pair` you constructed was bound to the name `p`, 
@@ -77,7 +73,6 @@ test = {
             'p.first.rest'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'How would you retrieve only the first operand?'
         },
@@ -93,7 +88,6 @@ test = {
             'Pair(2, Pair(4, nil))'
           ],
           'hidden': False,
-          'locked': False,
           'multiline': False,
           'question': 'What is the first operand of the call expression (prior to evaluation)?'
         }
