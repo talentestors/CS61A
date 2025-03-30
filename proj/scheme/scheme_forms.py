@@ -1,3 +1,4 @@
+from hmac import new
 from scheme_eval_apply import *
 from scheme_utils import *
 from scheme_classes import *
@@ -35,13 +36,40 @@ def do_define_form(expressions, env):
     if scheme_symbolp(signature):
         # assigning a name to a value e.g. (define x (+ 1 2))
         validate_form(expressions, 2, 2) # Checks that expressions is a list of length exactly 2
+
+        """
+        print("DEBUG:0", expressions, type(expressions))
+        print("DEBUG:1", expressions.rest, type(expressions.rest))
+        print("DEBUG:2", expressions.rest.first, type(expressions.rest.first))
+        如果想不明白为什么expressions.rest 不行 ，以下就是原因所在，这是Pair类的特性
+        scm> (define x (+ 7 3))
+        DEBUG:6
+        DEBUG:0 (x (+ 7 3)) <class 'pair.Pair'>
+        DEBUG:1 ((+ 7 3)) <class 'pair.Pair'>         Flase
+        DEBUG:2 (+ 7 3) <class 'pair.Pair'>           True
+        DEBUG:7
+        DEBUG:3
+        DEBUG:4
+        DEBUG:4
+        x
+        """
         # BEGIN PROBLEM 4
-        "*** YOUR CODE HERE ***"
+        value = scheme_eval(expressions.rest.first, env)
+        env.define(signature, value)
+        return signature
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
-        "*** YOUR CODE HERE ***"
+        function_name = signature.first  # e.g., f
+        parameters = signature.rest  # e.g., (x y)
+        function_body = expressions.rest  # e.g., (+ x y)
+
+        validate_formals(parameters)
+        function = LambdaProcedure(parameters, function_body, env)
+        # print("DEBUG:", function.__repr__())
+        env.define(function_name, function)
+        return function_name
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Pair) else signature
@@ -55,8 +83,8 @@ def do_quote_form(expressions, env):
     Pair('+', Pair('x', Pair(2, nil)))
     """
     validate_form(expressions, 1, 1)
-    # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    # BEGIN PROBLEM 5, Similar to pro4
+    return expressions.first
     # END PROBLEM 5
 
 def do_begin_form(expressions, env):
@@ -77,12 +105,13 @@ def do_lambda_form(expressions, env):
     >>> env = create_global_frame()
     >>> do_lambda_form(read_line("((x) (+ x 2))"), env) # evaluating (lambda (x) (+ x 2))
     LambdaProcedure(Pair('x', nil), Pair(Pair('+', Pair('x', Pair(2, nil))), nil), <Global Frame>)
+    LambdaProcedure(Pair('x',Pair(y, nil)), Pair(Pair('+', Pair('x', Pair(y, nil))), nil), <Global Frame>)
     """
     validate_form(expressions, 2)
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 def do_if_form(expressions, env):
@@ -115,7 +144,14 @@ def do_and_form(expressions, env):
     False
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    tmp = '#t'
+    while expressions != nil:
+        val = scheme_eval(expressions.first, env)
+        if is_scheme_false(val):
+            return val
+        tmp = val
+        expressions = expressions.rest
+    return tmp
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -133,7 +169,14 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    tmp = '#f'
+    while expressions != nil:
+        val = scheme_eval(expressions.first, env)
+        if is_scheme_true(val):
+            return val
+        tmp = val
+        expressions = expressions.rest
+    return tmp
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
@@ -153,7 +196,13 @@ def do_cond_form(expressions, env):
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+            tmp = clause.rest
+            while tmp != nil:
+                if tmp.rest == nil:
+                    return scheme_eval(tmp.first, env)
+                scheme_eval(tmp.first, env)
+                tmp = tmp.rest
+            return test
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -177,7 +226,22 @@ def make_let_frame(bindings, env):
         raise SchemeError('bad bindings list in let form')
     names = vals = nil
     # BEGIN PROBLEM 14
-    "*** YOUR CODE HERE ***"
+    # Iterate over the bindings and separate names and values
+    # Iterate through each binding
+    while bindings != nil:
+        binding = bindings.first
+        
+        validate_form(binding, 2, 2)  
+        
+        name, expr = binding.first, binding.rest.first 
+        value = scheme_eval(expr, env) 
+
+        names = Pair(name, names)
+        vals = Pair(value, vals)
+
+        bindings = bindings.rest
+
+    validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
@@ -219,7 +283,7 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
 
