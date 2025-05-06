@@ -34,3 +34,11 @@ At last, all the start codes and test program for homework, labs and projects ar
 ### Wanna Learn More ?
 
 Check out [this repository](https://github.com/PKUFlyingPig/Self-learning-Computer-Science) which contains all my self-learning materials : )
+
+---
+
+## Recommend
+
+https://htdp.org/2018-01-06/Book/
+
+https://htdp.org/
